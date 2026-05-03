@@ -58,7 +58,7 @@ export const PROJECTS: Project[] = [
       "Lead capture direction",
       "Admin/product management direction"
     ],
-    stack: ["React", "TypeScript", "Vite", "Tailwind", "Firebase", "Vercel", "Google AI Studio"],
+    stack: ["React", "TypeScript", "Tailwind", "Firebase", "Security Architecture"],
     liveUrl: "https://e-mutex.vercel.app/",
     accessType: "public",
     visualType: "website"
@@ -117,7 +117,7 @@ export const PROJECTS: Project[] = [
       "Copy-to-WhatsApp workflow",
       "Message history direction"
     ],
-    stack: ["React", "Vite", "Firebase", "Firestore", "Claude API", "Vercel"],
+    stack: ["React", "Firebase", "Firestore", "Claude AI", "Deployment"],
     liveUrl: "https://group-mind-alpha.vercel.app/",
     accessType: "public",
     visualType: "ai-automation"
