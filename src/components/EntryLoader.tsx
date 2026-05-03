@@ -8,51 +8,52 @@ interface EntryLoaderProps {
 }
 
 export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
+  const [phase, setPhase] = useState<'initial' | 'shrinking' | 'rising' | 'revealing' | 'loading' | 'complete'>('initial');
   const [progress, setProgress] = useState(0);
-  const [currentMessage, setCurrentMessage] = useState(0);
   const [isSkipped, setIsSkipped] = useState(false);
 
-  const messages = [
-    "Packaging your brand for the digital world...",
-    "Aligning media, websites, and automation...",
-    "Preparing selected case files...",
-    "Entering the Digital Lab..."
-  ];
-
   useEffect(() => {
-    const progressTimer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(progressTimer);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 30);
-
-    const messageTimer = setInterval(() => {
-      setCurrentMessage(prev => (prev < messages.length - 1 ? prev + 1 : prev));
-    }, 800);
-
-    const autoRevealTimer = setTimeout(() => {
-      if (!isSkipped) {
-        onComplete();
-      }
-    }, 4500);
+    // Phase 1: Initial (0s - 0.8s) - Circle appears
+    const t1 = setTimeout(() => setPhase('shrinking'), 800);
+    // Phase 2: Shrinking (0.8s - 1.4s) - Scales down to dot
+    const t2 = setTimeout(() => setPhase('rising'), 1400);
+    // Phase 3: Rising (1.4s - 1.9s) - Dot moves up
+    const t3 = setTimeout(() => setPhase('revealing'), 1900);
+    // Phase 4: Revealing (1.9s - 3.1s) - BrandAs & Supporting Line
+    const t4 = setTimeout(() => setPhase('loading'), 3100);
+    // Phase 5: Loading (3.1s - 4.2s) - Progress line
+    const t5 = setTimeout(() => setPhase('complete'), 4200);
 
     return () => {
-      clearInterval(progressTimer);
-      clearInterval(messageTimer);
-      clearTimeout(autoRevealTimer);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+      clearTimeout(t5);
     };
-  }, [onComplete, isSkipped]);
+  }, []);
+
+  useEffect(() => {
+    if (phase === 'loading') {
+      const timer = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(timer);
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 20);
+      return () => clearInterval(timer);
+    }
+  }, [phase]);
 
   const floatingLabels = [
-    { text: "Websites", top: "20%", left: "15%", delay: 0.2 },
-    { text: "Media", top: "25%", right: "20%", delay: 0.4 },
-    { text: "AI Automation", bottom: "30%", left: "20%", delay: 0.6 },
-    { text: "Case Files", bottom: "25%", right: "15%", delay: 0.8 },
-    { text: "Digital Growth", top: "50%", right: "10%", delay: 1.0 },
+    { text: "Websites", top: "20%", left: "15%" },
+    { text: "Media", top: "25%", right: "20%" },
+    { text: "AI Automation", bottom: "30%", left: "20%" },
+    { text: "Case Files", bottom: "25%", right: "15%" },
+    { text: "Digital Growth", top: "50%", right: "10%" },
   ];
 
   if (isSkipped) return null;
@@ -60,137 +61,189 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
   return (
     <motion.div 
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-[100] bg-[#071A3D] flex flex-col items-center justify-center overflow-hidden"
+      exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-0 z-[100] bg-[#071A3D] flex items-center justify-center overflow-hidden"
     >
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#0A3D91_0%,_transparent_70%)] opacity-50" />
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+      {/* Dynamic Backgrounds */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#0A3D91_0%,_transparent_70%)] opacity-40 shrink-0" />
       
-      {/* Mesh Gradient Anim */}
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.2, 1],
-          rotate: [0, 90, 0],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        className="absolute -top-1/2 -left-1/2 w-full h-full bg-brand-primary/20 blur-[120px] rounded-full"
-      />
-      <motion.div 
-        animate={{ 
-          scale: [1.2, 1, 1.2],
-          rotate: [90, 0, 90],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-brand-cyan/20 blur-[120px] rounded-full"
-      />
+      {/* Blueprint Grid */}
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
-
-      {/* Floating Labels */}
-      {floatingLabels.map((label, idx) => (
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: [0, 0.2, 0], y: [0, -20, 0] }}
-          transition={{ duration: 4, delay: label.delay, repeat: Infinity }}
-          className="absolute text-[10px] font-black uppercase tracking-[0.4em] text-brand-mist/40 pointer-events-none hidden md:block"
-          style={{ top: label.top, left: label.left, right: label.right, bottom: label.bottom }}
-        >
-          {label.text}
-        </motion.div>
-      ))}
-
-      {/* Main Content */}
-      <div className="relative z-10 w-full max-w-lg px-8 flex flex-col items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-12 text-center"
-        >
-          <motion.div 
-            animate={{ 
-              textShadow: ["0 0 0px rgba(46,168,255,0)", "0 0 20px rgba(46,168,255,0.5)", "0 0 0px rgba(46,168,255,0)"]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="text-5xl md:text-7xl font-display font-bold text-white tracking-tighter mb-4"
-          >
-            BrandAs <span className="text-brand-accent">Media</span>
-          </motion.div>
-          <div className="h-1 w-24 bg-brand-accent mx-auto rounded-full shadow-[0_0_15px_rgba(46,168,255,0.8)]" />
-        </motion.div>
-
-        {/* Cinematic Progress */}
-        <div className="w-full space-y-8">
-          <div className="relative h-[2px] w-full bg-white/5 rounded-full overflow-hidden">
-            <motion.div 
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              className="absolute h-full bg-gradient-to-r from-brand-primary to-brand-cyan shadow-[0_0_10px_rgba(46,168,255,1)]"
-            />
-          </div>
-
-          <div className="h-8 relative">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={currentMessage}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="text-center text-brand-mist/40 text-[10px] font-black uppercase tracking-[0.3em]"
-              >
-                {messages[currentMessage]}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Final Quote */}
-        {progress > 80 && (
+      {/* Cinematic Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-12 text-center"
-          >
-            <p className="text-brand-mist/60 italic font-medium text-lg leading-relaxed">
-              "Your brand is not weak. It just needs better packaging."
-            </p>
-          </motion.div>
-        )}
-
-        {/* Enter Button */}
-        {progress === 100 && (
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            onClick={() => onComplete()}
-            className="mt-12 px-10 py-4 accent-gradient text-white rounded-full text-xs font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all"
-          >
-            Enter the Digital Lab
-          </motion.button>
-        )}
+            key={i}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ 
+              opacity: [0, 0.3, 0],
+              scale: [0, 1, 0],
+              x: [Math.random() * 1000 - 500, Math.random() * 1000 - 500],
+              y: [Math.random() * 1000 - 500, Math.random() * 1000 - 500]
+            }}
+            transition={{ duration: 5 + Math.random() * 5, repeat: Infinity, ease: "linear" }}
+            className="absolute rounded-full bg-brand-cyan/20 w-1 h-1"
+            style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+          />
+        ))}
       </div>
 
-      {/* Skip Option */}
+      <AnimatePresence mode="popLayout">
+        {/* Phase 1 & 2: The Glowing Circle & Dot Transformation */}
+        {(phase === 'initial' || phase === 'shrinking' || phase === 'rising') && (
+          <motion.div
+            key="intro-dot"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ 
+              scale: phase === 'initial' ? 1 : 0.05, 
+              opacity: phase === 'rising' ? [1, 0.8, 1] : 1,
+              y: phase === 'rising' ? -150 : 0
+            }}
+            transition={{ 
+              scale: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
+              y: { duration: 0.5, ease: "easeOut" }
+            }}
+            className="relative flex items-center justify-center shrink-0"
+          >
+            {/* The Circle */}
+            <div className={`
+              ${phase === 'initial' ? 'w-64 h-64 border-2' : 'w-4 h-4'} 
+              rounded-full border-brand-accent transition-all duration-700 flex items-center justify-center 
+              bg-brand-accent/5 backdrop-blur-sm shadow-[0_0_50px_rgba(46,168,255,0.3)]
+            `}>
+              {phase === 'initial' && (
+                <motion.span 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-white text-xl font-display font-bold tracking-widest text-center px-4"
+                >
+                  Your Brand.
+                </motion.span>
+              )}
+            </div>
+
+            {/* Light Trail (Only in rising) */}
+            {phase === 'rising' && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 100 }}
+                className="absolute top-4 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-t from-transparent via-brand-accent to-brand-accent shadow-[0_0_10px_rgba(46,168,255,0.8)]"
+              />
+            )}
+          </motion.div>
+        )}
+
+        {/* Phase 4 & 5: Brand Reveal & Loading */}
+        {(phase === 'revealing' || phase === 'loading' || phase === 'complete') && (
+          <div className="flex flex-col items-center max-w-2xl px-6 w-full relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-center w-full"
+            >
+              <div className="mb-2 flex items-center justify-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse shadow-[0_0_8px_rgba(46,168,255,1)]" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-mist/30">System Initialized</span>
+              </div>
+              
+              <h1 className="text-5xl md:text-7xl font-display font-bold text-white tracking-tighter mb-4">
+                BrandAs <span className="text-brand-accent">Media</span>
+              </h1>
+              
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+                className="text-brand-mist/60 italic font-medium text-lg md:text-xl leading-relaxed mb-12"
+              >
+                "Your brand is not weak. It just needs better packaging."
+              </motion.p>
+            </motion.div>
+
+            {/* System Loading UI */}
+            {phase !== 'revealing' && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="w-full space-y-10"
+              >
+                {/* Progress Bar */}
+                <div className="relative h-[2px] w-full bg-white/5 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    className="absolute h-full bg-gradient-to-r from-brand-primary to-brand-cyan shadow-[0_0_15px_rgba(46,168,255,0.8)]"
+                  />
+                </div>
+
+                {/* Floating Meta Labels */}
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                  {floatingLabels.map((label, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: phase === 'loading' ? progress > (idx * 20) ? 1 : 0.2 : 0 }}
+                      className="px-4 py-2 bg-white/5 rounded-full border border-white/10 text-center"
+                    >
+                      <span className="text-[8px] font-black uppercase tracking-widest text-brand-mist/40">{label.text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Enter Button vs Auto Reveal */}
+            {(phase === 'complete' || progress === 100) && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-16 flex flex-col items-center gap-4"
+              >
+                <button
+                  onClick={() => onComplete()}
+                  className="px-12 py-5 accent-gradient text-white rounded-full text-xs font-black uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(46,168,255,0.3)] hover:scale-105 active:scale-95 transition-all group overflow-hidden relative"
+                >
+                  <span className="relative z-10">Enter the Digital Lab</span>
+                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                </button>
+                <p className="text-[9px] font-bold text-brand-mist/20 uppercase tracking-widest animate-pulse">Connection Secured • Press to reveal</p>
+              </motion.div>
+            )}
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Background Decorative Accents */}
+      <motion.div 
+        animate={{ opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 3, repeat: Infinity }}
+        className="absolute top-1/2 left-0 w-32 h-[1px] bg-gradient-to-r from-brand-accent to-transparent"
+      />
+      <motion.div 
+        animate={{ opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 3, delay: 1.5, repeat: Infinity }}
+        className="absolute top-1/2 right-0 w-32 h-[1px] bg-gradient-to-l from-brand-cyan to-transparent"
+      />
+
+      {/* Skip Intro */}
       <button 
         onClick={() => {
           setIsSkipped(true);
           onComplete();
         }}
-        className="absolute bottom-10 right-10 text-[10px] font-black uppercase tracking-widest text-brand-mist/20 hover:text-white transition-colors"
+        className="absolute bottom-10 right-10 text-[9px] font-black uppercase tracking-[0.4em] text-brand-mist/20 hover:text-white transition-colors flex items-center gap-2 group"
       >
-        Skip Intro
+        <span className="w-4 h-[1px] bg-brand-mist/20 group-hover:bg-white transition-colors" />
+        Skip Cinematic Intro
       </button>
 
-      {/* Decorative Streaks */}
-      <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-brand-accent/20 to-transparent opacity-30" />
-      <div className="absolute top-0 right-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-brand-cyan/20 to-transparent opacity-30" />
+      {/* Ambient Glass Panel overlay */}
+      <div className="absolute inset-0 bg-black/10 backdrop-blur-[2px] pointer-events-none" />
     </motion.div>
   );
 };
