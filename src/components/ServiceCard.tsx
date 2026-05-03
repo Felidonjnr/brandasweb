@@ -7,6 +7,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import * as Icons from 'lucide-react';
 import { Service } from '../types';
+import { LIQUID_TRANSITION, HOVER_LIFT } from '../lib/motion';
 
 interface ServiceCardProps {
   key?: React.Key;
@@ -19,11 +20,14 @@ export const ServiceCard = ({ service, index }: ServiceCardProps) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="group relative p-10 rounded-[3rem] bg-brand-royal/10 border border-white/5 hover:border-brand-accent/30 transition-all card-shadow hover:translate-y-[-10px] overflow-hidden"
+      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ delay: index * 0.1, ...LIQUID_TRANSITION }}
+      whileHover="hover"
+      whileTap="tap"
+      variants={HOVER_LIFT}
+      className="group relative p-10 rounded-[3rem] bg-brand-royal/10 border border-white/5 hover:border-brand-accent/30 transition-shadow duration-500 hover:shadow-[0_0_50px_rgba(46,168,255,0.15)] overflow-hidden backdrop-blur-sm"
     >
       <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:opacity-[0.1] transition-all group-hover:scale-110">
         <IconComponent size={140} />

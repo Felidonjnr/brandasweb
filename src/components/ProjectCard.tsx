@@ -7,6 +7,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ExternalLink, ArrowRight, Lock, Clock, Globe, Cpu, Layout, BookOpen, Heart } from 'lucide-react';
 import { Project } from '../types';
+import { LIQUID_TRANSITION, HOVER_LIFT } from '../lib/motion';
 
 interface ProjectCardProps {
   key?: React.Key;
@@ -16,16 +17,16 @@ interface ProjectCardProps {
 
 const VisualPlaceholder = ({ type }: { type: string }) => {
   const icons: Record<string, React.ReactNode> = {
-    'website': <Globe size={48} className="text-brand-accent/40" />,
-    'ai-automation': <Cpu size={48} className="text-brand-primary/40" />,
-    'digital-system': <Layout size={48} className="text-brand-cyan/40" />,
-    'education-tech': <BookOpen size={48} className="text-brand-mist/40" />,
-    'ai-assistant': <Cpu size={48} className="text-brand-primary/40" />,
-    'personalized-experience': <Heart size={48} className="text-pink-500/40" />
+    'website': <Globe size={48} className="text-brand-accent/30" />,
+    'ai-automation': <Cpu size={48} className="text-brand-primary/30" />,
+    'digital-system': <Layout size={48} className="text-brand-cyan/30" />,
+    'education-tech': <BookOpen size={48} className="text-brand-mist/30" />,
+    'ai-assistant': <Cpu size={48} className="text-brand-primary/30" />,
+    'personalized-experience': <Heart size={48} className="text-pink-500/30" />
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-brand-royal/10">
+    <div className="w-full h-full flex items-center justify-center bg-brand-royal/5">
       {icons[type] || <Globe size={48} className="text-brand-mist/20" />}
     </div>
   );
@@ -37,11 +38,14 @@ export const ProjectCard = ({ project, onViewDetails }: ProjectCardProps) => {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.4 }}
-      className="group flex flex-col h-full bg-brand-royal/20 rounded-[3rem] overflow-hidden border border-white/5 hover:border-brand-accent/20 transition-all card-shadow relative"
+      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+      transition={LIQUID_TRANSITION}
+      whileHover="hover"
+      whileTap="tap"
+      variants={HOVER_LIFT}
+      className="group flex flex-col h-full bg-brand-royal/10 rounded-[3rem] overflow-hidden border border-white/5 hover:border-brand-accent/30 transition-shadow duration-500 hover:shadow-[0_0_50px_rgba(46,168,255,0.15)] relative backdrop-blur-sm"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         {project.image ? (

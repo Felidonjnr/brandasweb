@@ -45,7 +45,7 @@ export interface Service {
 export const PROJECTS: Project[] = [
   {
     title: "EMutex Nig Website Funnel",
-    category: "Website / Sales Funnel",
+    category: "Websites",
     status: "Live Preview",
     shortDescription: "A premium wellness product website and funnel built around product discovery, WhatsApp conversion, product presentation, and lead capture direction.",
     challenge: "EMutex Nig needed a product-focused digital presence that could make the brand look trusted, organize products clearly, and guide customers toward WhatsApp-based ordering.",
@@ -65,7 +65,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Light Assembly Media Portal",
-    category: "Digital System / Media Workflow",
+    category: "AI Systems",
     status: "Live Preview",
     shortDescription: "A media workflow portal designed to organize content operations, team access, knowledge resources, and digital coordination.",
     challenge: "The media team needed a structured system for organizing media work, managing generated content, saving knowledge, and improving digital coordination.",
@@ -85,7 +85,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Keo Bakes n’ Fries Website",
-    category: "Website Design",
+    category: "Websites",
     status: "Live Preview",
     shortDescription: "A food brand website designed to make the business look more credible, clear, and easy to explore.",
     challenge: "The brand needed a stronger digital presence that could present its food business clearly and build trust online.",
@@ -104,7 +104,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "GroupMind — WhatsApp Intelligence Dashboard",
-    category: "AI Automation / Content System",
+    category: "AI Systems",
     status: "Live Preview",
     shortDescription: "A WhatsApp intelligence dashboard that generates tailored messages for different groups and supports group-specific content planning.",
     challenge: "Managing content for different WhatsApp groups can become repetitive, especially when each group needs a different tone, purpose, and daily message.",
@@ -124,7 +124,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Telegram AI Agent",
-    category: "AI Automation / Messaging System",
+    category: "AI Systems",
     status: "Protected Preview",
     shortDescription: "A Telegram command center concept designed for group monitoring, message relay, broadcasts, AI summaries, media handling, and daily digest workflows.",
     challenge: "Managing several Telegram groups manually can become stressful, repetitive, and difficult to track without automation.",
@@ -145,7 +145,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "MINOS — Ministry Intelligence & Operational System",
-    category: "AI System / Ministry Workflow",
+    category: "AI Systems",
     status: "Live Preview",
     shortDescription: "An AI-powered ministry content and knowledge system for sermons, devotionals, study, WhatsApp content, and ministry resource organization.",
     challenge: "Church content creation and ministry study needed a faster, more organized system for generating, saving, reading, and reusing ministry materials.",

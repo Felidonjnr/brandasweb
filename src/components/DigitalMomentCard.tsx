@@ -1,81 +1,41 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, Heart, Gift, ExternalLink, Clock, Lock } from 'lucide-react';
-import { DigitalMoment } from '../types';
+import { LIQUID_TRANSITION } from '../lib/motion';
 
-interface DigitalMomentCardProps {
-  key?: React.Key;
-  moment: DigitalMoment;
+interface Moment {
+  title: string;
+  category: string;
+  description: string;
+  visual: string;
 }
 
-export const DigitalMomentCard = ({ moment }: DigitalMomentCardProps) => {
-  const PROTECTED_WHATSAPP_LINK = "https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20want%20to%20request%20access%20to%20one%20of%20your%20protected%20project%20previews.";
-
+export const DigitalMomentCard = ({ moment }: { moment: Moment }) => {
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+    <motion.div
+      initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true }}
-      className="group bg-brand-royal/10 border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-brand-accent/30 transition-all card-shadow p-8 flex flex-col h-full"
+      transition={LIQUID_TRANSITION}
+      whileHover={{ y: -10 }}
+      className="p-10 rounded-[3.5rem] bg-brand-deep border border-white/5 hover:border-brand-accent/30 transition-all duration-700 relative overflow-hidden group shadow-xl"
     >
-      <div className="flex justify-between items-start mb-6">
-        <div className="w-12 h-12 rounded-xl bg-brand-accent/10 flex items-center justify-center text-brand-accent group-hover:accent-gradient group-hover:text-white transition-all">
-          {moment.title.toLowerCase().includes('valentine') ? <Heart size={24} /> : <Gift size={24} />}
-        </div>
-        <div className="flex flex-col items-end gap-1">
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-mist/20">{moment.status}</span>
-          {moment.accessType === 'protected' && (
-            <span className="text-[8px] font-black uppercase tracking-widest text-orange-400 flex items-center gap-1">
-              <Lock size={8} /> Protected
-            </span>
-          )}
-        </div>
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-accent/0 to-transparent group-hover:via-brand-accent transition-all duration-1000" />
+      
+      <div className="mb-10 text-[10px] font-black uppercase tracking-[0.4em] text-brand-primary flex items-center gap-3">
+        <span className="w-2 h-2 rounded-full bg-brand-primary group-hover:shadow-[0_0_10px_rgba(46,168,255,1)] transition-all" />
+        {moment.category}
       </div>
-
-      <h3 className="text-xl font-display font-bold text-white mb-4 group-hover:text-brand-accent transition-colors">
+      
+      <h3 className="text-3xl font-display font-bold text-white mb-6 italic leading-tight group-hover:text-brand-accent transition-colors duration-700">
         {moment.title}
       </h3>
       
-      <p className="text-brand-mist/40 text-sm leading-relaxed flex-1 mb-8">
-        {moment.shortDescription}
+      <p className="text-brand-mist/30 text-base leading-relaxed italic mb-10 transition-colors duration-700 group-hover:text-brand-mist/50">
+        "{moment.description}"
       </p>
 
-      <div className="flex flex-col gap-4 mt-auto">
-        {moment.accessType === 'public' && moment.liveUrl && (
-          <a 
-            href={moment.liveUrl}
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="w-full px-6 py-4 accent-gradient text-white rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all shadow-xl shadow-brand-primary/20"
-          >
-            <ExternalLink size={14} />
-            <span>Open Live Preview</span>
-          </a>
-        )}
-
-        {moment.accessType === 'protected' && (
-          <a 
-            href={PROTECTED_WHATSAPP_LINK}
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="w-full px-6 py-4 bg-brand-cyan/20 hover:bg-brand-cyan text-white rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all"
-          >
-            <Lock size={14} />
-            <span>Request Access</span>
-          </a>
-        )}
-
-        {moment.accessType === 'coming-soon' && (
-          <div className="w-full px-6 py-4 bg-white/5 text-brand-mist/20 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 cursor-default border border-white/5">
-            <Clock size={14} />
-            <span>Coming Soon</span>
-          </div>
-        )}
+      <div className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-mist/10 group-hover:text-brand-accent/30 transition-colors duration-1000">
+        Lab Signature • Intentional
       </div>
     </motion.div>
   );

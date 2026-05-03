@@ -1,185 +1,127 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React from 'react';
-import { motion } from 'motion/react';
-import { X, ExternalLink, Zap, Lock, Clock, Globe, Cpu, Layout, BookOpen, Heart } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { X, ExternalLink, MessageCircle, CheckCircle2, Sparkles } from 'lucide-react';
 import { Project } from '../types';
+import { LIQUID_TRANSITION, BLUR_REVEAL_VARIANTS, STAGGER_CONTAINER, FADE_UP_VARIANTS } from '../lib/motion';
 
 interface ProjectModalProps {
   project: Project;
   onClose: () => void;
 }
 
-const VisualPlaceholder = ({ type }: { type: string }) => {
-  const icons: Record<string, React.ReactNode> = {
-    'website': <Globe size={64} className="text-brand-accent/40" />,
-    'ai-automation': <Cpu size={64} className="text-brand-primary/40" />,
-    'digital-system': <Layout size={64} className="text-brand-cyan/40" />,
-    'education-tech': <BookOpen size={64} className="text-brand-mist/40" />,
-    'ai-assistant': <Cpu size={64} className="text-brand-primary/40" />,
-    'personalized-experience': <Heart size={64} className="text-pink-500/40" />
-  };
-
-  return (
-    <div className="w-full h-full flex items-center justify-center bg-brand-royal/10">
-      {icons[type] || <Globe size={64} className="text-brand-mist/20" />}
-    </div>
-  );
-};
-
 export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
-  const PROTECTED_WHATSAPP_LINK = "https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20want%20to%20request%20access%20to%20one%20of%20your%20protected%20project%20previews.";
-
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6"
-    >
-      <div className="absolute inset-0 bg-brand-deep/95 backdrop-blur-md" onClick={onClose} />
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-10">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="absolute inset-0 bg-brand-deep/90 backdrop-blur-2xl"
+      />
       
       <motion.div 
-        initial={{ scale: 0.9, opacity: 0, y: 30 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: 30 }}
-        className="w-full max-w-6xl bg-brand-deep border border-brand-accent/20 rounded-[3rem] overflow-hidden shadow-2xl relative z-10 max-h-[90vh] overflow-y-auto"
+        variants={BLUR_REVEAL_VARIANTS}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        className="relative w-full max-w-6xl bg-brand-deep border border-white/10 rounded-[4rem] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] max-h-[90vh] overflow-y-auto custom-scrollbar"
       >
         <button 
           onClick={onClose}
-          className="absolute top-8 right-8 p-3 rounded-full bg-brand-royal/50 hover:bg-brand-accent text-white transition-all z-20 shadow-xl border border-white/10"
+          className="absolute top-8 right-8 z-10 p-4 rounded-full bg-black/50 text-white hover:bg-brand-accent transition-all duration-500 backdrop-blur-md border border-white/10"
         >
           <X size={24} />
         </button>
-        
-        <div className="grid lg:grid-cols-5 h-full">
-          {/* Image & Basic Info */}
-          <div className="lg:col-span-2 relative bg-brand-royal/20 h-full min-h-[400px] lg:min-h-full">
-            {project.image ? (
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <VisualPlaceholder type={project.visualType} />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-deep via-brand-deep/20" />
-            <div className="absolute bottom-12 left-10 right-10">
-              <div className="flex flex-col gap-3 mb-6">
-                <span className="w-fit px-4 py-1.5 rounded-full accent-gradient text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-brand-primary/20">
-                  {project.status}
-                </span>
-                {project.accessType === 'protected' && (
-                  <span className="w-fit px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/30 text-[9px] font-black uppercase tracking-widest text-orange-400 flex items-center gap-1.5">
-                    <Lock size={10} />
-                    Protected Preview
-                  </span>
-                )}
-                {project.accessType === 'coming-soon' && (
-                  <span className="w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-black uppercase tracking-widest text-white/40 flex items-center gap-1.5">
-                    <Clock size={10} />
-                    Preview coming soon
-                  </span>
-                )}
-              </div>
-              <p className="text-brand-cyan text-xs font-black uppercase tracking-[0.3em] mb-2">{project.category}</p>
-              <h2 className="text-4xl font-display font-bold leading-[1.1] text-white">{project.title}</h2>
-            </div>
+
+        <div className="flex flex-col lg:flex-row h-full">
+          {/* Visual Side */}
+          <div className="lg:w-1/2 relative bg-brand-royal/10">
+            <motion.img 
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.8 }}
+              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+              src={project.image} 
+              alt={project.title}
+              className="w-full h-full object-cover min-h-[400px] lg:min-h-full opacity-60 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 transition-all duration-1000"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-deep via-transparent to-transparent lg:bg-gradient-to-r" />
           </div>
 
-          {/* Details Content */}
-          <div className="lg:col-span-3 p-10 md:p-16 lg:p-20 overflow-y-auto">
-            <div className="space-y-12">
-              <section>
-                <div className="inline-flex items-center gap-3 text-brand-accent font-black text-xs uppercase tracking-[0.2em] mb-6">
-                  <Zap size={18} />
-                  <span>The Case Story</span>
-                </div>
-                <p className="text-brand-mist/80 text-xl leading-relaxed font-medium italic">"{project.shortDescription}"</p>
-              </section>
+          {/* Content Side */}
+          <div className="lg:w-1/2 p-12 sm:p-20 flex flex-col justify-center">
+            <motion.div
+              variants={STAGGER_CONTAINER}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div variants={FADE_UP_VARIANTS} className="inline-flex items-center gap-4 px-6 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-[10px] font-black uppercase tracking-[0.4em] mb-12">
+                <Sparkles size={14} />
+                <span>Selected Transformation</span>
+              </motion.div>
+              
+              <motion.h2 variants={FADE_UP_VARIANTS} className="text-5xl md:text-6xl font-display font-bold text-white mb-8 italic tracking-tighter leading-none">
+                {project.title}
+              </motion.h2>
+              
+              <motion.div variants={FADE_UP_VARIANTS} className="flex flex-wrap gap-3 mb-10">
+                <span className="px-5 py-2 rounded-full bg-white/[0.03] border border-white/5 text-[9px] font-black uppercase tracking-[0.2em] text-brand-mist/40 italic">
+                  {project.category}
+                </span>
+                <span className="px-5 py-2 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-[9px] font-black uppercase tracking-[0.2em] text-brand-primary italic">
+                  Premium Delivery
+                </span>
+              </motion.div>
 
-              <div className="grid md:grid-cols-2 gap-12 pt-4">
-                <section>
-                  <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] mb-6 border-l-2 border-brand-accent pl-4">The Challenge</h4>
-                  <p className="text-brand-mist/50 text-base leading-relaxed">{project.challenge}</p>
-                </section>
-                <section>
-                  <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] mb-6 border-l-2 border-brand-cyan pl-4">BrandAs Response</h4>
-                  <p className="text-brand-mist/50 text-base leading-relaxed">{project.brandasResponse}</p>
-                </section>
-              </div>
-
-              <section>
-                <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] mb-8">Key Features & Modules</h4>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {project.features.map((feature, i) => (
-                    <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-brand-royal/20 border border-white/5 group hover:bg-brand-royal/40 transition-all">
-                      <div className="w-2 h-2 rounded-full bg-brand-accent mt-2 flex-shrink-0 shadow-[0_0_10px_rgba(46,168,255,0.5)]" />
-                      <span className="text-sm text-brand-mist/70 font-bold">{feature}</span>
+              <motion.p variants={FADE_UP_VARIANTS} className="text-xl text-brand-mist/40 mb-12 leading-relaxed italic font-medium">
+                "{project.shortDescription || project.description}"
+              </motion.p>
+              
+              <motion.div variants={FADE_UP_VARIANTS} className="space-y-6 mb-16">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-mist/20 mb-4 px-2">Lab Protocol Applied</h4>
+                {['Visual Strategy', 'Conversion Engineering', 'Fluid Experience'].map((item, i) => (
+                  <div key={i} className="flex items-center gap-5 group">
+                    <div className="w-6 h-6 rounded-lg bg-brand-accent/5 border border-brand-accent/20 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all duration-500">
+                      <CheckCircle2 size={14} />
                     </div>
-                  ))}
-                </div>
-              </section>
+                    <span className="text-sm font-bold text-brand-mist/60 group-hover:text-white transition-colors">{item}</span>
+                  </div>
+                ))}
+              </motion.div>
 
-              <section>
-                <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] mb-6">The Lab Stack</h4>
-                <div className="flex flex-wrap gap-3">
-                  {project.stack.map((tool, i) => (
-                    <span key={i} className="px-5 py-2 rounded-full bg-brand-royal/40 text-brand-cyan text-xs font-black uppercase tracking-wider border border-white/5">
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </section>
-
-              <div className="pt-12 grid grid-cols-1 gap-6">
-                {project.accessType === 'public' && project.liveUrl && (
-                  <a 
+              <motion.div 
+                variants={FADE_UP_VARIANTS}
+                className="flex flex-col sm:flex-row gap-6"
+              >
+                {project.liveUrl && (
+                  <motion.a 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     href={project.liveUrl}
-                    target="_blank" 
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full px-10 py-5 accent-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 shadow-2xl shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all"
+                    className="flex-1 px-10 py-5 accent-gradient text-white rounded-full font-black uppercase tracking-widest text-xs flex items-center justify-center gap-4 shadow-xl group"
                   >
-                    <ExternalLink size={20} />
-                    Open Live Preview
-                  </a>
+                    Launch Work
+                    <ExternalLink size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </motion.a>
                 )}
-
-                {project.accessType === 'protected' && (
-                  <div className="flex flex-col gap-6 p-10 rounded-[2.5rem] bg-brand-royal/20 border border-brand-cyan/20 text-center">
-                    <div>
-                      <h4 className="text-white font-display font-bold text-xl mb-2 flex items-center justify-center gap-3">
-                        <Lock size={20} className="text-brand-cyan" />
-                        Protected Preview
-                      </h4>
-                      <p className="text-brand-mist/50 text-sm">Access to this case study's live environment is restricted to authorized partners and clients.</p>
-                    </div>
-                    <a 
-                      href={PROTECTED_WHATSAPP_LINK}
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-full px-10 py-5 bg-brand-cyan hover:bg-brand-mist text-brand-deep rounded-[2.5rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all"
-                    >
-                      Request Access Now
-                    </a>
-                  </div>
-                )}
-
-                {project.accessType === 'coming-soon' && (
-                  <div className="w-full px-10 py-5 bg-white/5 border border-white/5 text-brand-mist/20 rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 cursor-default">
-                    <Clock size={20} />
-                    Preview Coming Soon
-                  </div>
-                )}
-              </div>
-            </div>
+                <motion.a 
+                   whileHover={{ scale: 1.05 }}
+                   whileTap={{ scale: 0.95 }}
+                  href="https://wa.me/2348024646351"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 px-10 py-5 bg-white/5 hover:bg-brand-accent/20 text-white rounded-full font-black uppercase tracking-widest text-xs flex items-center justify-center gap-4 transition-all border border-white/10"
+                >
+                  Discuss Lab
+                  <MessageCircle size={18} />
+                </motion.a>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
