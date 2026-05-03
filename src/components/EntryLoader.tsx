@@ -12,20 +12,20 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    // 0.0s - 0.8s: Circle appears and glows (initial)
+    // 0.0s - 1.0s: Circle appears and glows (initial)
     const t1 = setTimeout(() => setPhase('shrinking'), 1000);
-    // 0.8s - 1.6s: Circle shrinks into a dot
+    // 1.0s - 1.8s: Circle shrinks into a dot
     const t2 = setTimeout(() => setPhase('rising'), 1800);
-    // 1.6s - 2.5s: Dot rises upward
-    const t3 = setTimeout(() => setPhase('revealing'), 3000);
-    // 2.5s - 3.2s: BrandAs Media appears
-    const t4 = setTimeout(() => setPhase('message'), 3800);
-    // 3.2s - 5.2s: Supporting line appears and stays (longer hold)
-    const t5 = setTimeout(() => setPhase('complete'), 5800);
+    // 1.8s - 3.4s: Dot rises upward (Extended to 1.6s for visibility)
+    const t3 = setTimeout(() => setPhase('revealing'), 3400);
+    // 3.4s - 4.2s: BrandAs Media appears
+    const t4 = setTimeout(() => setPhase('message'), 4200);
+    // 4.2s - 6.2s: Supporting line appears and stays
+    const t5 = setTimeout(() => setPhase('complete'), 6200);
     // Final transition
     const t6 = setTimeout(() => {
       if (!isSkipped) onComplete();
-    }, 6500);
+    }, 7000);
 
     return () => {
       clearTimeout(t1);
@@ -60,19 +60,19 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
             animate={{ 
               scale: phase === 'initial' ? 1 : 0.04, 
               opacity: phase === 'rising' ? [1, 1, 0] : 1,
-              y: phase === 'rising' ? -350 : 0
+              y: phase === 'rising' ? -400 : 0
             }}
             transition={{ 
               scale: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
-              y: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
-              opacity: { duration: 1.2, times: [0, 0.8, 1] }
+              y: { duration: 1.6, ease: [0.34, 1.56, 0.64, 1] }, // Added a slight "overshoot" for cinematic feel
+              opacity: { duration: 1.6, times: [0, 0.85, 1] }
             }}
             className="relative flex items-center justify-center shrink-0"
           >
             <div className={`
-              ${phase === 'initial' ? 'w-72 h-72 border-2' : 'w-4 h-4'} 
+              ${phase === 'initial' ? 'w-72 h-72 border-2' : 'w-6 h-6'} 
               rounded-full border-brand-accent transition-all duration-1000 flex items-center justify-center 
-              bg-brand-accent/5 backdrop-blur-md shadow-[0_0_80px_rgba(46,168,255,0.4)]
+              bg-brand-accent backdrop-blur-md shadow-[0_0_80px_rgba(46,168,255,0.6)]
             `}>
               {phase === 'initial' && (
                 <motion.div 
@@ -91,9 +91,9 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
             {phase === 'rising' && (
               <motion.div 
                 initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: [0, 0.4, 0], height: 350, y: 175 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] bg-gradient-to-t from-transparent via-brand-accent to-white shadow-[0_0_15px_rgba(46,168,255,1)]"
+                animate={{ opacity: [0, 0.5, 0], height: 500, y: 250 }}
+                transition={{ duration: 1.6, ease: "easeOut" }}
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-t from-transparent via-brand-accent to-white shadow-[0_0_20px_rgba(46,168,255,1)]"
               />
             )}
           </motion.div>
