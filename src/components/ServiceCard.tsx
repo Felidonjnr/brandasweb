@@ -9,6 +9,7 @@ import * as Icons from 'lucide-react';
 import { Service } from '../types';
 
 interface ServiceCardProps {
+  key?: React.Key;
   service: Service;
   index: number;
 }
@@ -43,9 +44,20 @@ export const ServiceCard = ({ service, index }: ServiceCardProps) => {
         {service.description}
       </p>
       
-      <div className="mt-10 pt-10 border-t border-white/5 flex items-center gap-2 text-xs font-bold text-brand-cyan/60 uppercase tracking-widest group-hover:text-brand-cyan transition-colors">
-        <Icons.Zap size={14} />
-        <span>Transformation Active</span>
+      <div className="mt-10 pt-10 border-t border-white/5 flex flex-col gap-6">
+        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-brand-cyan/60 group-hover:text-brand-cyan transition-colors">
+          <Icons.Zap size={14} />
+          <span>Capability Unlocked</span>
+        </div>
+        <a 
+          href="https://wa.me/2348148906969" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-4 bg-white/5 hover:bg-brand-accent/20 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 group/btn border border-white/10"
+        >
+          <span>Request This Service</span>
+          <Icons.ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+        </a>
       </div>
     </motion.div>
   );

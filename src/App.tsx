@@ -43,9 +43,11 @@ function App() {
 
   const filteredProjects = activeFilter === 'All' 
     ? PROJECTS 
-    : PROJECTS.filter(p => p.category.includes(activeFilter) || activeFilter === 'All');
+    : PROJECTS.filter(p => p.category === activeFilter || activeFilter === 'All');
 
-  const filters = ['All', 'Website', 'AI System', 'Digital System', 'Automation', 'Brand Visuals'];
+  const filters = ['All', 'Websites', 'Graphic Design', 'Logos & Branding', 'Social Media Ads', 'Flyers & Print', 'AI Systems'];
+
+  const MAIN_WHATSAPP_LINK = "https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20just%20viewed%20your%20portfolio%20and%20I%27d%20like%20to%20discuss%20a%20website%2C%20design%2C%20or%20AI%20automation%20project.";
 
   return (
     <div className="min-h-screen bg-brand-deep text-brand-mist selection:bg-brand-accent selection:text-white overflow-x-hidden font-sans">
@@ -88,7 +90,7 @@ function App() {
               <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full glass border border-white/10 mb-8 hover:border-brand-accent/30 transition-all cursor-default group">
                 <div className="w-2 h-2 rounded-full bg-brand-accent animate-pulse shadow-[0_0_10px_rgba(46,168,255,0.8)]" />
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-mist/60 group-hover:text-brand-accent transition-colors">
-                  Media • Websites • AI Automation
+                  Websites • Branding • Graphic Design • Ads
                 </span>
               </div>
               
@@ -101,30 +103,35 @@ function App() {
                     transition={{ duration: 1, delay: 1.5 }}
                     className="absolute bottom-2 left-0 h-2 bg-brand-primary/40 -z-10"
                   />
-                </span> Packaging.
+                </span> Positioning.
               </h1>
 
-              <p className="text-xl md:text-2xl text-brand-mist/60 mb-12 max-w-2xl leading-relaxed italic font-medium">
-                "BrandAs Media helps visionaries transform scattered online presence into premium, trusted, and high-converting digital identities."
+              <p className="text-xl md:text-2xl text-brand-mist/60 mb-12 max-w-3xl leading-relaxed italic font-medium">
+                "From websites to flyers, logos, social media advert designs, and brand visuals, we create clean digital solutions that help your business look credible and attract serious attention."
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 mb-16">
                 <a 
-                  href="#case-files"
+                  href="#transformation"
                   className="px-10 py-5 accent-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 shadow-2xl shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all group"
                 >
-                  <Lock size={18} className="group-hover:rotate-12 transition-transform" />
-                  Enter the Digital Lab
+                  View Our Services
                   <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                 </a>
                 <a 
-                  href="https://wa.me/2348148906969" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#case-files"
                   className="px-10 py-5 glass hover:bg-white/10 text-white rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all ring-1 ring-white/10"
                 >
+                  See Our Work
+                </a>
+                <a 
+                  href={MAIN_WHATSAPP_LINK} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-10 py-5 bg-white/5 hover:bg-brand-accent/20 text-white rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all border border-white/10"
+                >
                   <MessageCircle size={18} />
-                  Message BrandAs Media
+                  Request a Project
                 </a>
               </div>
 
@@ -256,7 +263,7 @@ function App() {
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
                 <ProjectCard 
-                  key={project.id} 
+                  key={project.title} 
                   project={project} 
                   onViewDetails={setSelectedProject}
                 />
@@ -264,34 +271,54 @@ function App() {
             </AnimatePresence>
 
             {/* Placeholder Empty Sections */}
-            {activeFilter === 'Brand Visuals' && (
+            {activeFilter === 'Flyers & Print' && (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="col-span-full py-20 flex flex-col items-center justify-center text-center space-y-6 bg-brand-royal/10 border border-dashed border-white/10 rounded-[3rem]"
+                className="col-span-full py-24 flex flex-col items-center justify-center text-center space-y-8 bg-brand-royal/10 border border-dashed border-white/10 rounded-[3.5rem] relative overflow-hidden"
               >
-                <div className="w-20 h-20 rounded-full bg-brand-royal/20 flex items-center justify-center text-brand-accent animate-pulse">
-                  <Layers size={40} />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(46,168,255,0.05)_0%,_transparent_70%)]" />
+                <div className="w-24 h-24 rounded-full bg-brand-royal/20 flex items-center justify-center text-brand-accent animate-pulse relative z-10">
+                  <Layers size={48} />
                 </div>
-                <div>
-                  <h4 className="text-xl font-display font-bold text-white mb-2">Creative Works Loading Soon</h4>
-                  <p className="text-brand-mist/30 text-sm max-w-sm">We are compiling our best identity designs and creative campaigns for this section. Check back shortly.</p>
+                <div className="relative z-10">
+                  <h4 className="text-2xl font-display font-bold text-white mb-3">Creative Works Are Being Curated</h4>
+                  <p className="text-brand-mist/40 text-base max-w-md mx-auto leading-relaxed">Selected flyers, campaign visuals, social media designs, logo concepts, and brand identity directions are being prepared for the full BrandAs Media archive.</p>
+                  <a 
+                    href={MAIN_WHATSAPP_LINK} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-10 inline-flex px-10 py-4 accent-gradient text-white rounded-full text-xs font-black uppercase tracking-widest shadow-2xl transition-all hover:scale-105 active:scale-95"
+                  >
+                    Request a Design
+                  </a>
                 </div>
               </motion.div>
             )}
 
-            {activeFilter === 'Automation' && (
+            {filteredProjects.length === 0 && activeFilter !== 'Flyers & Print' && (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="col-span-full py-20 flex flex-col items-center justify-center text-center space-y-6 bg-brand-royal/10 border border-dashed border-white/10 rounded-[3rem]"
+                className="col-span-full py-24 flex flex-col items-center justify-center text-center space-y-8 bg-brand-royal/10 border border-dashed border-white/10 rounded-[3.5rem] relative overflow-hidden"
               >
-                <div className="w-20 h-20 rounded-full bg-brand-royal/20 flex items-center justify-center text-brand-cyan animate-pulse">
-                  <Cpu size={40} />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(46,168,255,0.05)_0%,_transparent_70%)]" />
+                <div className="w-24 h-24 rounded-full bg-brand-royal/20 flex items-center justify-center text-brand-primary animate-pulse relative z-10">
+                  <Loader2 size={48} className="animate-spin" />
                 </div>
-                <div>
-                  <h4 className="text-xl font-display font-bold text-white mb-2">Internal Tools Loading Soon</h4>
-                  <p className="text-brand-mist/30 text-sm max-w-sm">Selected AI automation workflows and internal digital tools are being prepared for public demo.</p>
+                <div className="relative z-10 px-6">
+                  <h4 className="text-2xl font-display font-bold text-white mb-3">Curating Selected Works</h4>
+                  <p className="text-brand-mist/40 text-base max-w-md mx-auto leading-relaxed">
+                    We are currently organizing our most recent transformations in {activeFilter} for public presentation.
+                  </p>
+                  <a 
+                    href={MAIN_WHATSAPP_LINK} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-10 inline-flex px-10 py-4 bg-brand-primary/20 hover:bg-brand-primary text-white rounded-full text-xs font-black uppercase tracking-widest transition-all"
+                  >
+                    Discuss Your Project
+                  </a>
                 </div>
               </motion.div>
             )}
@@ -313,15 +340,16 @@ function App() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {DIGITAL_MOMENTS.map((moment) => (
-              <DigitalMomentCard key={moment.id} moment={moment} />
+              <DigitalMomentCard key={moment.title} moment={moment} />
             ))}
             
             {/* Loading Soon Placeholder for Media Samples */}
-            <div className="p-8 rounded-[2.5rem] border border-dashed border-white/5 bg-white/[0.01] flex flex-col items-center justify-center text-center group">
-               <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-brand-mist/20 mb-6 group-hover:bg-brand-accent/10 group-hover:text-brand-accent transition-all">
-                  <Loader2 size={24} className="animate-spin" />
+            <div className="p-8 rounded-[2.5rem] border border-dashed border-white/5 bg-white/[0.01] flex flex-col items-center justify-center text-center group min-h-[300px]">
+               <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-brand-mist/20 mb-6 group-hover:bg-brand-accent/10 group-hover:text-brand-accent transition-all">
+                  <Loader2 size={32} className="animate-spin" />
                </div>
-               <h4 className="text-brand-mist/40 font-bold mb-2">Media Samples Loading</h4>
+               <h4 className="text-xl font-display font-bold text-white/50 mb-3">Media Samples Loading Soon</h4>
+               <p className="text-brand-mist/20 text-sm max-w-[250px] mx-auto mb-6">Selected video edits, motion graphics, church media visuals, and event media works are being prepared for upload.</p>
                <p className="text-[10px] font-black uppercase tracking-widest text-brand-mist/10">Archive In Progress</p>
             </div>
           </div>
@@ -407,18 +435,18 @@ function App() {
               Let’s make people <span className="text-brand-accent italic">see it</span>.
             </h2>
             <p className="text-xl text-brand-mist/60 mb-12 italic font-medium leading-relaxed max-w-2xl mx-auto">
-              "Stop hiding behind an ordinary online presence. Let's package your business for the digital authority it deserves."
+              Message BrandAs Media for websites, brand visuals, AI automation, digital systems, and growth-focused online presence.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a 
-                href="https://wa.me/2348148906969" 
+                href={MAIN_WHATSAPP_LINK} 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-10 py-5 accent-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 shadow-2xl shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all"
               >
                 <MessageCircle size={18} />
-                Message on WhatsApp
+                Message BrandAs Media
               </a>
               <a 
                 href="#case-files"

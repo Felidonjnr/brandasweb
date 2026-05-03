@@ -5,15 +5,35 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { ExternalLink, ArrowRight, Github, Play, AlertCircle } from 'lucide-react';
+import { ExternalLink, ArrowRight, Lock, Clock, Globe, Cpu, Layout, BookOpen, Heart } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectCardProps {
+  key?: React.Key;
   project: Project;
   onViewDetails: (project: Project) => void;
 }
 
+const VisualPlaceholder = ({ type }: { type: string }) => {
+  const icons: Record<string, React.ReactNode> = {
+    'website': <Globe size={48} className="text-brand-accent/40" />,
+    'ai-automation': <Cpu size={48} className="text-brand-primary/40" />,
+    'digital-system': <Layout size={48} className="text-brand-cyan/40" />,
+    'education-tech': <BookOpen size={48} className="text-brand-mist/40" />,
+    'ai-assistant': <Cpu size={48} className="text-brand-primary/40" />,
+    'personalized-experience': <Heart size={48} className="text-pink-500/40" />
+  };
+
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-brand-royal/10">
+      {icons[type] || <Globe size={48} className="text-brand-mist/20" />}
+    </div>
+  );
+};
+
 export const ProjectCard = ({ project, onViewDetails }: ProjectCardProps) => {
+  const PROTECTED_WHATSAPP_LINK = "https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20want%20to%20request%20access%20to%20one%20of%20your%20protected%20project%20previews.";
+
   return (
     <motion.div
       layout
@@ -24,17 +44,33 @@ export const ProjectCard = ({ project, onViewDetails }: ProjectCardProps) => {
       className="group flex flex-col h-full bg-brand-royal/20 rounded-[3rem] overflow-hidden border border-white/5 hover:border-brand-accent/20 transition-all card-shadow relative"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
-        <img 
-          src={project.image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop'} 
-          alt={project.title} 
-          className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-        />
+        {project.image ? (
+          <img 
+            src={project.image} 
+            alt={project.title} 
+            className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+          />
+        ) : (
+          <VisualPlaceholder type={project.visualType} />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-deep via-brand-deep/20 to-transparent opacity-80" />
         
-        <div className="absolute top-6 right-6">
+        <div className="absolute top-6 right-6 flex flex-col items-end gap-2">
           <span className={`px-4 py-1.5 rounded-full glass border border-white/20 text-[10px] font-black uppercase tracking-[0.2em] text-white backdrop-blur-md`}>
             {project.status}
           </span>
+          {project.accessType === 'protected' && (
+            <span className="px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/30 text-[9px] font-black uppercase tracking-widest text-orange-400 flex items-center gap-1.5">
+              <Lock size={10} />
+              Protected Preview
+            </span>
+          )}
+          {project.accessType === 'coming-soon' && (
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-black uppercase tracking-widest text-white/40 flex items-center gap-1.5">
+              <Clock size={10} />
+              Preview coming soon
+            </span>
+          )}
         </div>
       </div>
 
@@ -61,46 +97,38 @@ export const ProjectCard = ({ project, onViewDetails }: ProjectCardProps) => {
           </button>
           
           <div className="flex gap-3">
-            {project.liveUrl ? (
+            {project.accessType === 'public' && project.liveUrl && (
               <a 
                 href={project.liveUrl}
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex-1 p-4 glass hover:accent-gradient text-white rounded-2xl transition-all shadow-xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest"
-                title="Open Live Preview"
+                className="flex-1 p-4 accent-gradient text-white rounded-2xl transition-all shadow-xl flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest"
               >
                 <ExternalLink size={16} />
-                <span>Live Preview</span>
+                <span>Open Live Preview</span>
               </a>
-            ) : (
+            )}
+
+            {project.accessType === 'protected' && (
+              <a 
+                href={PROTECTED_WHATSAPP_LINK}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex-1 p-4 bg-brand-cyan/20 hover:bg-brand-cyan text-white rounded-2xl transition-all shadow-xl flex flex-col items-center justify-center gap-1 text-[10px] font-black uppercase tracking-widest"
+              >
+                <div className="flex items-center gap-2">
+                  <Lock size={14} />
+                  <span>Request Access</span>
+                </div>
+                <span className="text-[8px] opacity-60 normal-case tracking-normal">Access available on request.</span>
+              </a>
+            )}
+
+            {project.accessType === 'coming-soon' && (
               <div className="flex-1 p-4 bg-white/5 border border-white/5 rounded-2xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-mist/20 cursor-default">
-                <AlertCircle size={14} />
-                <span>Preview Soon</span>
+                <Clock size={14} />
+                <span>Coming Soon</span>
               </div>
-            )}
-
-            {project.githubUrl && (
-              <a 
-                href={project.githubUrl}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-4 glass hover:bg-white/10 text-white rounded-2xl transition-all shadow-xl flex items-center justify-center"
-                title="View GitHub"
-              >
-                <Github size={18} />
-              </a>
-            )}
-
-            {project.videoUrl && (
-              <a 
-                href={project.videoUrl}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-4 glass hover:bg-red-500/20 text-white rounded-2xl transition-all shadow-xl flex items-center justify-center"
-                title="Watch Demo"
-              >
-                <Play size={18} />
-              </a>
             )}
           </div>
         </div>

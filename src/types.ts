@@ -3,27 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type ProjectStatus = 'Live Preview' | 'Demo Build' | 'Prototype' | 'Selected Work' | 'In Progress' | 'Live Test';
+export type ProjectStatus = 'Live Preview' | 'Demo Build' | 'Prototype' | 'Selected Work' | 'In Progress' | 'Live Test' | 'Protected Preview';
 
 export interface Project {
-  id: string;
-  title: string;
-  category: string;
-  status: ProjectStatus;
-  shortDescription: string;
-  challenge: string;
-  brandasResponse: string;
-  features: string[];
-  stack: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  videoUrl?: string;
-  image: string;
-  screenshotNote?: string;
-}
-
-export interface DigitalMoment {
-  id: string;
   title: string;
   category: string;
   status: string;
@@ -32,11 +14,25 @@ export interface DigitalMoment {
   brandasResponse: string;
   features: string[];
   stack: string[];
-  githubUrl?: string;
   liveUrl?: string;
-  videoUrl?: string;
-  image: string;
-  screenshotNote?: string;
+  accessType: 'public' | 'protected' | 'coming-soon';
+  visualType: string;
+  image?: string;
+}
+
+export interface DigitalMoment {
+  title: string;
+  category: string;
+  status: string;
+  shortDescription: string;
+  challenge: string;
+  brandasResponse: string;
+  features: string[];
+  stack: string[];
+  liveUrl?: string;
+  accessType: 'public' | 'protected' | 'coming-soon';
+  visualType: string;
+  image?: string;
 }
 
 export interface Service {
@@ -48,156 +44,149 @@ export interface Service {
 
 export const PROJECTS: Project[] = [
   {
-    id: '1',
     title: "EMutex Nig Website Funnel",
     category: "Website / Sales Funnel",
     status: "Live Preview",
-    shortDescription: "A premium wellness product website and funnel built around product discovery, WhatsApp conversion, admin product control, and lead capture direction.",
+    shortDescription: "A premium wellness product website and funnel built around product discovery, WhatsApp conversion, product presentation, and lead capture direction.",
     challenge: "EMutex Nig needed a product-focused digital presence that could make the brand look trusted, organize products clearly, and guide customers toward WhatsApp-based ordering.",
     brandasResponse: "BrandAs Media shaped the website strategy, UI/UX direction, product catalogue structure, product detail flow, admin portal direction, WhatsApp CTA flow, and lead capture approach.",
     features: [
       "Premium wellness product homepage",
-      "Product catalogue and product detail structure",
+      "Product catalogue and product detail flow",
       "Bundle/product sales direction",
       "WhatsApp-first conversion flow",
-      "Admin portal setup direction",
-      "Firebase authentication/admin environment direction",
-      "Google AI Studio/Vite-based development workflow"
+      "Lead capture direction",
+      "Admin/product management direction"
     ],
-    stack: ["React", "TypeScript", "Vite", "Tailwind", "Firebase", "Framer Motion", "Vercel", "Google AI Studio"],
-    githubUrl: "https://github.com/Felidonjnr/EMutex",
+    stack: ["React", "TypeScript", "Vite", "Tailwind", "Firebase", "Vercel", "Google AI Studio"],
     liveUrl: "https://e-mutex.vercel.app/",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use a screenshot of the homepage hero, product catalogue, and admin/product page if available."
+    accessType: "public",
+    visualType: "website"
   },
   {
-    id: '2',
     title: "Light Assembly Media Portal",
     category: "Digital System / Media Workflow",
     status: "Live Preview",
-    shortDescription: "A church media workflow portal designed to organize media operations, content generation, team access, and digital coordination.",
-    challenge: "The media team needed a structured system for organizing church media work, managing generated content, saving knowledge, and improving digital coordination.",
-    brandasResponse: "BrandAs Media planned and built the app structure, Firebase workflow, Google sign-in/admin access, Firestore collections, content queue direction, knowledge resources, and AI provider switching support.",
+    shortDescription: "A media workflow portal designed to organize content operations, team access, knowledge resources, and digital coordination.",
+    challenge: "The media team needed a structured system for organizing media work, managing generated content, saving knowledge, and improving digital coordination.",
+    brandasResponse: "BrandAs Media planned and built the app structure, team workflow, Firebase direction, content queue system, knowledge resources, and AI-supported media operations.",
     features: [
-      "Google sign-in and admin access",
-      "Firestore-powered team data structure",
-      "Church knowledge base",
-      "Generated content queue",
-      "Weekly calendar items",
-      "Follow-up tasks",
-      "Knowledge dump resources",
-      "Claude and DeepSeek provider switching"
+      "Media workflow dashboard",
+      "Content queue direction",
+      "Knowledge resource area",
+      "Team access direction",
+      "Follow-up/task structure",
+      "AI provider support direction"
     ],
     stack: ["React", "Firebase", "Firestore", "Firebase Auth", "Claude API", "DeepSeek API", "Vercel"],
-    githubUrl: "https://github.com/Felidonjnr/light-assembly-media-portal",
     liveUrl: "https://light-assembly-media-portal.vercel.app/",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use screenshots of the login/admin area, dashboard, content queue, and knowledge base if accessible."
+    accessType: "public",
+    visualType: "digital-system"
   },
   {
-    id: '3',
-    title: "MINOS — Ministry Intelligence & Operational System",
-    category: "AI System / Ministry Workflow",
+    title: "Keo Bakes n’ Fries Website",
+    category: "Website Design",
     status: "Live Preview",
-    shortDescription: "An AI-powered ministry content and knowledge system with separate Claude and DeepSeek dashboards for sermons, devotionals, study, WhatsApp content, and pastoral resources.",
-    challenge: "Church content creation and ministry study needed a faster, more organized system for generating, saving, reading, and reusing ministry materials.",
-    brandasResponse: "BrandAs Media created a dual-dashboard AI system with Claude for pastoral content and DeepSeek for deeper study, supported by Firebase library sync, read-aloud tools, prompt updating, and saved resource categories.",
+    shortDescription: "A food brand website designed to make the business look more credible, clear, and easy to explore.",
+    challenge: "The brand needed a stronger digital presence that could present its food business clearly and build trust online.",
+    brandasResponse: "BrandAs Media handled the website structure, visual direction, mobile-friendly layout, deployment support, and online presentation.",
     features: [
-      "Claude-powered ministry content dashboard",
-      "DeepSeek-powered deep study dashboard",
-      "Morning brief, Sunday message, sermon notes, devotionals, WhatsApp content, prayer guide, and study tools",
-      "Firebase-connected shared library",
-      "Save-to-library workflow",
-      "Read aloud, copy, and share actions",
-      "AI prompt updater",
-      "Separate libraries for different AI dashboards"
+      "Food brand landing page",
+      "Mobile-friendly website structure",
+      "Product/service presentation",
+      "Clean business information layout",
+      "Social preview direction"
     ],
-    stack: ["HTML", "Firebase", "Claude API", "DeepSeek API", "Google Cloud Text-to-Speech direction"],
-    githubUrl: "https://github.com/Felidonjnr/MINOS",
-    liveUrl: "",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use screenshots of the MINOS home screen, Claude dashboard, DeepSeek dashboard, and library area."
+    stack: ["React", "Vercel", "Cloudinary"],
+    liveUrl: "https://keo-bakes-n-fries-website.vercel.app/",
+    accessType: "public",
+    visualType: "website"
   },
   {
-    id: '4',
-    title: "Telegram AI Agent",
-    category: "AI Automation / Messaging System",
-    status: "Prototype / Demo Build",
-    shortDescription: "A phone-controlled Telegram command center designed for group monitoring, message relay, broadcasts, AI summaries, media scraping, and daily digests.",
-    challenge: "Managing several Telegram groups manually can become stressful, repetitive, and difficult to track without automation.",
-    brandasResponse: "BrandAs Media structured a cloud-based Telegram AI agent with command controls, monitoring, relay, broadcast, scraping, Claude-powered extraction, media saving, and a dashboard deployment flow.",
-    features: [
-      "View and monitor Telegram groups",
-      "Auto-relay messages with keyword filters",
-      "Broadcast DMs to group members",
-      "Extract key info from groups using Claude AI",
-      "Scrape and auto-save media",
-      "Daily digest of monitored groups",
-      "Pause/resume controls",
-      "AI self-updater concept"
-    ],
-    stack: ["Python", "Telethon", "FastAPI", "Supabase", "React", "Railway", "Vercel", "Claude Haiku"],
-    githubUrl: "https://github.com/Felidonjnr/verbose-meme-tele",
-    liveUrl: "https://telegramai.vercel.app/",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use screenshots of dashboard UI, command list, and system overview if available."
-  },
-  {
-    id: '5',
     title: "GroupMind — WhatsApp Intelligence Dashboard",
     category: "AI Automation / Content System",
     status: "Live Preview",
-    shortDescription: "A WhatsApp intelligence dashboard that generates fresh, tailored messages for multiple groups and saves message history with Firebase.",
+    shortDescription: "A WhatsApp intelligence dashboard that generates tailored messages for different groups and supports group-specific content planning.",
     challenge: "Managing content for different WhatsApp groups can become repetitive, especially when each group needs a different tone, purpose, and daily message.",
-    brandasResponse: "BrandAs Media built a dashboard concept that allows group profiles, knowledge dumps, message generation, editing, history tracking, and direct copy-to-WhatsApp workflow.",
+    brandasResponse: "BrandAs Media built a dashboard concept for group profiles, knowledge dumps, message generation, editing, history tracking, and copy-to-WhatsApp workflow.",
     features: [
       "AI-generated group messages",
       "Separate group profiles",
-      "Special instruction per group",
+      "Special instructions per group",
       "Message review and edit flow",
       "Copy-to-WhatsApp workflow",
-      "Firebase message history",
-      "Mistake-free group-specific content planning"
+      "Message history direction"
     ],
-    stack: ["React", "Vite", "Firebase", "Firestore", "Anthropic Claude API", "Vercel"],
-    githubUrl: "https://github.com/Felidonjnr/Group-Mind",
+    stack: ["React", "Vite", "Firebase", "Firestore", "Claude API", "Vercel"],
     liveUrl: "https://group-mind-alpha.vercel.app/",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use dashboard screenshot showing group list, message generation area, and history panel."
+    accessType: "public",
+    visualType: "ai-automation"
   },
   {
-    id: '6',
+    title: "Telegram AI Agent",
+    category: "AI Automation / Messaging System",
+    status: "Protected Preview",
+    shortDescription: "A Telegram command center concept designed for group monitoring, message relay, broadcasts, AI summaries, media handling, and daily digest workflows.",
+    challenge: "Managing several Telegram groups manually can become stressful, repetitive, and difficult to track without automation.",
+    brandasResponse: "BrandAs Media structured a cloud-based Telegram AI agent with command controls, monitoring, relay, broadcast, Claude-powered extraction, media handling, and dashboard direction.",
+    features: [
+      "Telegram group monitoring",
+      "Message relay direction",
+      "Broadcast workflow",
+      "AI-powered group summaries",
+      "Media handling direction",
+      "Daily digest concept",
+      "Pause/resume controls"
+    ],
+    stack: ["Python", "Telethon", "FastAPI", "Supabase", "React", "Railway", "Vercel", "Claude Haiku"],
+    liveUrl: "https://telegramai.vercel.app/",
+    accessType: "protected",
+    visualType: "ai-automation"
+  },
+  {
+    title: "MINOS — Ministry Intelligence & Operational System",
+    category: "AI System / Ministry Workflow",
+    status: "Protected Preview",
+    shortDescription: "An AI-powered ministry content and knowledge system for sermons, devotionals, study, WhatsApp content, and ministry resource organization.",
+    challenge: "Church content creation and ministry study needed a faster, more organized system for generating, saving, reading, and reusing ministry materials.",
+    brandasResponse: "BrandAs Media created a dual-dashboard AI system direction with content generation, library saving, read-aloud tools, prompt updating, and resource organization.",
+    features: [
+      "AI ministry content dashboard",
+      "Sermon and devotional support",
+      "WhatsApp content generation",
+      "Study and prayer guide tools",
+      "Saved resource library",
+      "Read aloud/copy/share actions",
+      "Prompt updating direction"
+    ],
+    stack: ["HTML", "Firebase", "Claude API", "DeepSeek API", "GitHub Pages"],
+    liveUrl: "https://felidonjnr.github.io/MINOS/",
+    accessType: "protected",
+    visualType: "ai-automation"
+  },
+  {
     title: "Godshand Tutorials JAMB/WAEC Prep",
     category: "Education Tech / Quiz System",
-    status: "Demo Build",
-    shortDescription: "A mobile-friendly exam practice system with JAMB/WAEC separation, quiz timers, question bank management, progress review, mistake bank, and theory feedback.",
+    status: "Live Preview",
+    shortDescription: "A mobile-friendly exam practice system with JAMB/WAEC separation, quiz timers, question bank management, progress review, mistake bank, and theory feedback direction.",
     challenge: "Students need a focused exam practice experience that separates exam types, tracks weak areas, and supports both objective and theory-style practice.",
     brandasResponse: "BrandAs Media shaped an interactive quiz system with exam-mode selection, topic-based practice, timers, admin question management, progress tracking, and self-review support.",
     features: [
       "JAMB and WAEC mode separation",
       "Topic-based quiz setup",
-      "Live practice and CBT practice modes",
-      "Admin PIN-protected question manager",
-      "JSON import/export for question banks",
-      "Progress review and recent attempts",
-      "Mistake bank for wrong answers",
+      "Live practice and CBT modes",
+      "Question bank manager",
+      "Progress review",
+      "Mistake bank",
       "Scientific calculator",
-      "Theory answer self-review and feedback"
+      "Theory answer self-review"
     ],
-    stack: ["HTML", "Local Storage", "Netlify-ready configuration", "Firebase sync direction"],
-    githubUrl: "https://github.com/Felidonjnr/Godshandjambprep",
-    liveUrl: "",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use screenshots of exam mode selection, quiz setup, question bank manager, and mistake bank."
+    stack: ["HTML", "CSS", "JavaScript", "Local Storage", "GitHub Pages"],
+    liveUrl: "https://felidonjnr.github.io/Godshandjambprep/",
+    accessType: "public",
+    visualType: "education-tech"
   },
   {
-    id: '7',
     title: "NYSC FAQ Assistant",
     category: "AI Assistant / FAQ Bot",
     status: "Live Test",
@@ -212,42 +201,54 @@ export const PROJECTS: Project[] = [
       "Simple user-facing test link"
     ],
     stack: ["Web App", "AI Knowledge Base", "Vercel"],
-    githubUrl: "",
     liveUrl: "https://nysc-faq-bot.vercel.app/",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use screenshot of the live FAQ assistant homepage/interface."
+    accessType: "public",
+    visualType: "ai-assistant"
+  },
+  {
+    title: "AI-900 Study App",
+    category: "Education Tech / AI Learning",
+    status: "Live Preview",
+    shortDescription: "A focused AI-900 study and practice experience designed to support exam preparation through structured digital learning.",
+    challenge: "Learners preparing for AI-900 need a simple, focused study environment that makes revision easier and more accessible.",
+    brandasResponse: "BrandAs Media built a study-focused web experience to support AI-900 learning, practice, and exam preparation.",
+    features: [
+      "AI-900 focused learning interface",
+      "Exam preparation direction",
+      "Mobile-friendly study access",
+      "Simple digital learning experience"
+    ],
+    stack: ["Web App", "Vercel"],
+    liveUrl: "https://ai-900.vercel.app/",
+    accessType: "public",
+    visualType: "education-tech"
   }
 ];
 
 export const DIGITAL_MOMENTS: DigitalMoment[] = [
   {
-    id: 'dm1',
     title: "Valentine BrandAs Experience",
     category: "Personalized Digital Experience",
     status: "Selected Work",
-    shortDescription: "A personalized Valentine’s Day web experience designed to make someone feel seen through emotional digital storytelling.",
+    shortDescription: "A personalized Valentine’s Day web experience designed to turn a simple message into an emotional digital moment.",
     challenge: "Instead of sending a normal message, the goal was to create a personal digital moment that felt intentional, warm, and memorable.",
-    brandasResponse: "BrandAs Media created a simple interactive letter experience with name entry, emotional scroll flow, reveal cards, and a soft call-to-action.",
+    brandasResponse: "BrandAs Media created a simple interactive letter experience with name entry, emotional scroll flow, reveal cards, and a soft closing CTA.",
     features: [
       "Personalized name input",
       "Emotional letter-style experience",
       "Tap-to-reveal cards",
       "Scroll-based storytelling",
-      "BrandAs Media closing CTA"
+      "Mobile-friendly experience"
     ],
     stack: ["HTML", "CSS", "JavaScript"],
-    githubUrl: "https://github.com/Felidonjnr/Valentine-brandas",
     liveUrl: "",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1518199266791-739949406b2b?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use the valentine-preview.png from the repo or a screenshot of the opening screen."
+    accessType: "coming-soon",
+    visualType: "personalized-experience"
   },
   {
-    id: 'dm2',
     title: "Birthday Digital Letter — Sr. Maryanne",
     category: "Personalized Digital Experience",
-    status: "Selected Work",
+    status: "Live Preview",
     shortDescription: "A faith-inspired birthday web letter with chapter-style storytelling, prayers, and emotional scroll experience.",
     challenge: "The goal was to turn a birthday message into a more meaningful, memorable digital experience.",
     brandasResponse: "BrandAs Media designed a scroll-based birthday letter with spiritual tone, story sections, prayer content, and elegant personal presentation.",
@@ -258,18 +259,15 @@ export const DIGITAL_MOMENTS: DigitalMoment[] = [
       "Scroll-to-receive interaction",
       "Emotional closing message"
     ],
-    stack: ["HTML", "CSS", "JavaScript"],
-    githubUrl: "https://github.com/Felidonjnr/Birthday-RS",
-    liveUrl: "",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1530103862676-fa8c91bbe34b?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use screenshot of the opening birthday screen and prayer section."
+    stack: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    liveUrl: "https://felidonjnr.github.io/Birthday-RS/",
+    accessType: "public",
+    visualType: "personalized-experience"
   },
   {
-    id: 'dm3',
     title: "Birthday Digital Letter — Bernadette",
     category: "Personalized Digital Experience",
-    status: "Selected Work",
+    status: "Live Preview",
     shortDescription: "A late-but-genuine birthday experience built like a digital letter with chapters, reveal cards, and emotional writing.",
     challenge: "The aim was to make a belated birthday message feel personal, thoughtful, and more valuable than a regular text.",
     brandasResponse: "BrandAs Media created a chapter-based digital letter experience with personal storytelling, reveal cards, and a warm emotional ending.",
@@ -280,38 +278,48 @@ export const DIGITAL_MOMENTS: DigitalMoment[] = [
       "Personalized emotional copy",
       "Mobile-friendly experience"
     ],
-    stack: ["HTML", "CSS", "JavaScript"],
-    githubUrl: "https://github.com/Felidonjnr/Birthday-B",
-    liveUrl: "",
-    videoUrl: "",
-    image: "https://images.unsplash.com/photo-1496395039792-349f96434444?q=80&w=1000&auto=format&fit=crop",
-    screenshotNote: "Use screenshot of the opening screen and reveal-card section."
+    stack: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    liveUrl: "https://felidonjnr.github.io/Birthday-B/",
+    accessType: "public",
+    visualType: "personalized-experience"
   }
 ];
 
 export const SERVICES: Service[] = [
   {
-    toolName: 'Tool 1',
-    title: 'Digital Presence Builder',
-    description: 'We build clean, modern websites that make your business easier to trust, easier to understand, and easier to take seriously.',
+    toolName: 'Websites',
+    title: 'Website Design & Development',
+    description: 'Business websites, landing pages, and portfolios built for high trust and clean conversion.',
     icon: 'Globe'
   },
   {
-    toolName: 'Tool 2',
-    title: 'Visual Identity Engine',
-    description: 'We design visuals that make your brand look intentional, professional, and ready for the kind of customers you want to attract.',
+    toolName: 'Design',
+    title: 'Graphic Design',
+    description: 'Flyers, posters, and print-ready designs that make your brand look professional and intentional.',
     icon: 'Palette'
   },
   {
-    toolName: 'Tool 3',
-    title: 'AI Workflow System',
-    description: 'We help brands reduce manual stress by using AI to support content, sales, follow-up, and daily business workflows.',
-    icon: 'Cpu'
+    toolName: 'Identity',
+    title: 'Logo & Brand Identity',
+    description: 'Strategic logos, typography, and visual systems that define your brand’s authority.',
+    icon: 'Fingerprint'
   },
   {
-    toolName: 'Tool 4',
-    title: 'Growth Direction Map',
-    description: 'We help brands stop posting randomly and start moving with clearer digital direction.',
-    icon: 'TrendingUp'
+    toolName: 'Ads',
+    title: 'Social Media Advert Creatives',
+    description: 'High-impact Facebook, Instagram, and WhatsApp advert designs that attract serious attention.',
+    icon: 'Megaphone'
+  },
+  {
+    toolName: 'Content',
+    title: 'Content & Digital Promotion',
+    description: 'Ad copy support and promotional campaign visuals to help your business reach the right people.',
+    icon: 'MessageSquare'
+  },
+  {
+    toolName: 'Future',
+    title: 'AI & Digital Automation',
+    description: 'AI business support, workflow automation, and custom digital tools to reduce manual stress.',
+    icon: 'Cpu'
   }
 ];

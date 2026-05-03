@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { X, ExternalLink, Zap, Github, Play, AlertCircle, Sparkles } from 'lucide-react';
+import { X, ExternalLink, Zap, Lock, Clock, Globe, Cpu, Layout, BookOpen, Heart } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectModalProps {
@@ -13,7 +13,26 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
+const VisualPlaceholder = ({ type }: { type: string }) => {
+  const icons: Record<string, React.ReactNode> = {
+    'website': <Globe size={64} className="text-brand-accent/40" />,
+    'ai-automation': <Cpu size={64} className="text-brand-primary/40" />,
+    'digital-system': <Layout size={64} className="text-brand-cyan/40" />,
+    'education-tech': <BookOpen size={64} className="text-brand-mist/40" />,
+    'ai-assistant': <Cpu size={64} className="text-brand-primary/40" />,
+    'personalized-experience': <Heart size={64} className="text-pink-500/40" />
+  };
+
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-brand-royal/10">
+      {icons[type] || <Globe size={64} className="text-brand-mist/20" />}
+    </div>
+  );
+};
+
 export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
+  const PROTECTED_WHATSAPP_LINK = "https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20want%20to%20request%20access%20to%20one%20of%20your%20protected%20project%20previews.";
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -38,28 +57,37 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         
         <div className="grid lg:grid-cols-5 h-full">
           {/* Image & Basic Info */}
-          <div className="lg:col-span-2 relative bg-brand-royal/20">
-            <img 
-              src={project.image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop'} 
-              alt={project.title} 
-              className="w-full h-full object-cover min-h-[400px] lg:min-h-full"
-            />
+          <div className="lg:col-span-2 relative bg-brand-royal/20 h-full min-h-[400px] lg:min-h-full">
+            {project.image ? (
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <VisualPlaceholder type={project.visualType} />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-brand-deep via-brand-deep/20" />
             <div className="absolute bottom-12 left-10 right-10">
-              <span className="px-4 py-1.5 rounded-full accent-gradient text-[10px] font-black uppercase tracking-[0.2em] mb-4 inline-block shadow-lg shadow-brand-primary/20">
-                {project.status}
-              </span>
+              <div className="flex flex-col gap-3 mb-6">
+                <span className="w-fit px-4 py-1.5 rounded-full accent-gradient text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-brand-primary/20">
+                  {project.status}
+                </span>
+                {project.accessType === 'protected' && (
+                  <span className="w-fit px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/30 text-[9px] font-black uppercase tracking-widest text-orange-400 flex items-center gap-1.5">
+                    <Lock size={10} />
+                    Protected Preview
+                  </span>
+                )}
+                {project.accessType === 'coming-soon' && (
+                  <span className="w-fit px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-black uppercase tracking-widest text-white/40 flex items-center gap-1.5">
+                    <Clock size={10} />
+                    Preview coming soon
+                  </span>
+                )}
+              </div>
               <p className="text-brand-cyan text-xs font-black uppercase tracking-[0.3em] mb-2">{project.category}</p>
               <h2 className="text-4xl font-display font-bold leading-[1.1] text-white">{project.title}</h2>
-              
-              {project.screenshotNote && (
-                <div className="mt-8 p-6 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3">
-                   <Sparkles size={16} className="text-brand-accent flex-shrink-0 mt-1" />
-                   <p className="text-[10px] font-black uppercase tracking-widest text-brand-mist/30 leading-relaxed">
-                     {project.screenshotNote}
-                   </p>
-                </div>
-              )}
             </div>
           </div>
 
@@ -108,48 +136,45 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                 </div>
               </section>
 
-              <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {project.liveUrl ? (
+              <div className="pt-12 grid grid-cols-1 gap-6">
+                {project.accessType === 'public' && project.liveUrl && (
                   <a 
                     href={project.liveUrl}
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 px-10 py-5 accent-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 shadow-2xl shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all"
+                    className="w-full px-10 py-5 accent-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 shadow-2xl shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all"
                   >
                     <ExternalLink size={20} />
-                    Visit Live Preview
+                    Open Live Preview
                   </a>
-                ) : (
-                  <div className="flex-1 px-10 py-5 bg-white/5 border border-white/5 text-brand-mist/20 rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 cursor-default">
-                    <AlertCircle size={20} />
-                    Link Coming Soon
+                )}
+
+                {project.accessType === 'protected' && (
+                  <div className="flex flex-col gap-6 p-10 rounded-[2.5rem] bg-brand-royal/20 border border-brand-cyan/20 text-center">
+                    <div>
+                      <h4 className="text-white font-display font-bold text-xl mb-2 flex items-center justify-center gap-3">
+                        <Lock size={20} className="text-brand-cyan" />
+                        Protected Preview
+                      </h4>
+                      <p className="text-brand-mist/50 text-sm">Access to this case study's live environment is restricted to authorized partners and clients.</p>
+                    </div>
+                    <a 
+                      href={PROTECTED_WHATSAPP_LINK}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-full px-10 py-5 bg-brand-cyan hover:bg-brand-mist text-brand-deep rounded-[2.5rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all"
+                    >
+                      Request Access Now
+                    </a>
                   </div>
                 )}
 
-                <div className="flex gap-4">
-                  {project.githubUrl && (
-                    <a 
-                      href={project.githubUrl}
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex-1 px-6 py-5 glass hover:bg-white/10 text-white rounded-[2rem] font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-3 ring-1 ring-white/10"
-                    >
-                      <Github size={18} />
-                      Code
-                    </a>
-                  )}
-                  {project.videoUrl && (
-                    <a 
-                      href={project.videoUrl}
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex-1 px-6 py-5 glass hover:bg-red-500/20 text-white rounded-[2rem] font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-3 ring-1 ring-white/10"
-                    >
-                      <Play size={18} />
-                      Demo
-                    </a>
-                  )}
-                </div>
+                {project.accessType === 'coming-soon' && (
+                  <div className="w-full px-10 py-5 bg-white/5 border border-white/5 text-brand-mist/20 rounded-[2rem] font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 cursor-default">
+                    <Clock size={20} />
+                    Preview Coming Soon
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -40,7 +40,7 @@ export const Navbar = () => {
         </div>
 
         <a 
-          href="https://wa.me/yourwhatsappnumber"
+          href="https://wa.me/2348148906969"
           target="_blank" 
           rel="noopener noreferrer"
           className="px-8 py-3 rounded-full accent-gradient text-white text-xs font-black uppercase tracking-[0.2em] shadow-2xl shadow-brand-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
