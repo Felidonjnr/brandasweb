@@ -50,7 +50,7 @@ export const ServiceCard = ({ service, index }: ServiceCardProps) => {
           <span>Capability Unlocked</span>
         </div>
         <a 
-          href="https://wa.me/2348148906969" 
+          href="https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20just%20viewed%20your%20portfolio%20and%20I%27d%20like%20to%20discuss%20a%20website%2C%20design%2C%20or%20AI%20automation%20project." 
           target="_blank"
           rel="noopener noreferrer"
           className="w-full py-4 bg-white/5 hover:bg-brand-accent/20 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 group/btn border border-white/10"

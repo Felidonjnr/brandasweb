@@ -30,16 +30,25 @@ import { ProjectCard } from './components/ProjectCard';
 import { ProjectModal } from './components/ProjectModal';
 import { SectionHeading } from './components/SectionHeading';
 import { DigitalMomentCard } from './components/DigitalMomentCard';
+import { EntryLoader } from './components/EntryLoader';
 import { Project, SERVICES, PROJECTS, DIGITAL_MOMENTS } from './types';
 
 function App() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const hasSeenLoader = sessionStorage.getItem('brandas_loader_seen');
+    if (hasSeenLoader) {
+      setShowLoader(false);
+    }
   }, []);
+
+  const handleLoaderComplete = () => {
+    sessionStorage.setItem('brandas_loader_seen', 'true');
+    setShowLoader(false);
+  };
 
   const filteredProjects = activeFilter === 'All' 
     ? PROJECTS 
@@ -51,10 +60,20 @@ function App() {
 
   return (
     <div className="min-h-screen bg-brand-deep text-brand-mist selection:bg-brand-accent selection:text-white overflow-x-hidden font-sans">
-      <Navbar />
-
-      {/* Hero Section - The Opening Scene */}
-      <section id="the-lab" className="relative min-h-[100vh] flex items-center pt-20 overflow-hidden">
+      <AnimatePresence mode="wait">
+        {showLoader ? (
+          <EntryLoader key="loader" onComplete={handleLoaderComplete} />
+        ) : (
+          <motion.div 
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <Navbar />
+            
+            {/* Hero Section - The Opening Scene */}
+            <section id="the-lab" className="relative min-h-[100vh] flex items-center pt-20 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
           <motion.div 
@@ -84,7 +103,7 @@ function App() {
           <div className="max-w-5xl">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
-              animate={isLoaded ? { opacity: 1, x: 0 } : {}}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full glass border border-white/10 mb-8 hover:border-brand-accent/30 transition-all cursor-default group">
@@ -489,6 +508,10 @@ function App() {
           </div>
         </div>
       </footer>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Project Detail Modal */}
       <AnimatePresence>

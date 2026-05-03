@@ -40,13 +40,13 @@ export const Navbar = () => {
         </div>
 
         <a 
-          href="https://wa.me/2348148906969"
+          href="https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20just%20viewed%20your%20portfolio%20and%20I%27d%20like%20to%20discuss%20a%20website%2C%20design%2C%20or%20AI%20automation%20project."
           target="_blank" 
           rel="noopener noreferrer"
           className="px-8 py-3 rounded-full accent-gradient text-white text-xs font-black uppercase tracking-[0.2em] shadow-2xl shadow-brand-primary/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2"
         >
           <MessageSquare size={16} />
-          <span>Connect</span>
+          <span>Message BrandAs</span>
         </a>
       </div>
     </nav>

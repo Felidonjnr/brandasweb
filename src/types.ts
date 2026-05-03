@@ -146,7 +146,7 @@ export const PROJECTS: Project[] = [
   {
     title: "MINOS — Ministry Intelligence & Operational System",
     category: "AI System / Ministry Workflow",
-    status: "Protected Preview",
+    status: "Live Preview",
     shortDescription: "An AI-powered ministry content and knowledge system for sermons, devotionals, study, WhatsApp content, and ministry resource organization.",
     challenge: "Church content creation and ministry study needed a faster, more organized system for generating, saving, reading, and reusing ministry materials.",
     brandasResponse: "BrandAs Media created a dual-dashboard AI system direction with content generation, library saving, read-aloud tools, prompt updating, and resource organization.",
@@ -159,9 +159,9 @@ export const PROJECTS: Project[] = [
       "Read aloud/copy/share actions",
       "Prompt updating direction"
     ],
-    stack: ["HTML", "Firebase", "Claude API", "DeepSeek API", "GitHub Pages"],
+    stack: ["HTML", "Firebase", "Claude API", "DeepSeek API", "Deployment"],
     liveUrl: "https://felidonjnr.github.io/MINOS/",
-    accessType: "protected",
+    accessType: "public",
     visualType: "ai-automation"
   },
   {
@@ -181,7 +181,7 @@ export const PROJECTS: Project[] = [
       "Scientific calculator",
       "Theory answer self-review"
     ],
-    stack: ["HTML", "CSS", "JavaScript", "Local Storage", "GitHub Pages"],
+    stack: ["HTML", "CSS", "JavaScript", "Local Storage", "Deployment"],
     liveUrl: "https://felidonjnr.github.io/Godshandjambprep/",
     accessType: "public",
     visualType: "education-tech"
@@ -229,7 +229,7 @@ export const DIGITAL_MOMENTS: DigitalMoment[] = [
   {
     title: "Valentine BrandAs Experience",
     category: "Personalized Digital Experience",
-    status: "Selected Work",
+    status: "Live Preview",
     shortDescription: "A personalized Valentine’s Day web experience designed to turn a simple message into an emotional digital moment.",
     challenge: "Instead of sending a normal message, the goal was to create a personal digital moment that felt intentional, warm, and memorable.",
     brandasResponse: "BrandAs Media created a simple interactive letter experience with name entry, emotional scroll flow, reveal cards, and a soft closing CTA.",
@@ -240,9 +240,9 @@ export const DIGITAL_MOMENTS: DigitalMoment[] = [
       "Scroll-based storytelling",
       "Mobile-friendly experience"
     ],
-    stack: ["HTML", "CSS", "JavaScript"],
-    liveUrl: "",
-    accessType: "coming-soon",
+    stack: ["HTML", "CSS", "JavaScript", "Deployment"],
+    liveUrl: "https://felidonjnr.github.io/Valentine-brandas/",
+    accessType: "public",
     visualType: "personalized-experience"
   },
   {
@@ -259,7 +259,7 @@ export const DIGITAL_MOMENTS: DigitalMoment[] = [
       "Scroll-to-receive interaction",
       "Emotional closing message"
     ],
-    stack: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    stack: ["HTML", "CSS", "JavaScript", "Deployment"],
     liveUrl: "https://felidonjnr.github.io/Birthday-RS/",
     accessType: "public",
     visualType: "personalized-experience"
@@ -278,7 +278,7 @@ export const DIGITAL_MOMENTS: DigitalMoment[] = [
       "Personalized emotional copy",
       "Mobile-friendly experience"
     ],
-    stack: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    stack: ["HTML", "CSS", "JavaScript", "Deployment"],
     liveUrl: "https://felidonjnr.github.io/Birthday-B/",
     accessType: "public",
     visualType: "personalized-experience"
