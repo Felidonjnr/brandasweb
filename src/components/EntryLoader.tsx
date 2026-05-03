@@ -13,16 +13,16 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
   const [isSkipped, setIsSkipped] = useState(false);
 
   useEffect(() => {
-    // Phase 1: Initial (0s - 0.8s) - Circle appears
-    const t1 = setTimeout(() => setPhase('shrinking'), 800);
-    // Phase 2: Shrinking (0.8s - 1.4s) - Scales down to dot
-    const t2 = setTimeout(() => setPhase('rising'), 1400);
-    // Phase 3: Rising (1.4s - 1.9s) - Dot moves up
-    const t3 = setTimeout(() => setPhase('revealing'), 1900);
-    // Phase 4: Revealing (1.9s - 3.1s) - BrandAs & Supporting Line
-    const t4 = setTimeout(() => setPhase('loading'), 3100);
-    // Phase 5: Loading (3.1s - 4.2s) - Progress line
-    const t5 = setTimeout(() => setPhase('complete'), 4200);
+    // Phase 1: Initial (0s - 1.2s) - Circle appears
+    const t1 = setTimeout(() => setPhase('shrinking'), 1200);
+    // Phase 2: Shrinking (1.2s - 2.2s) - Scales down to dot
+    const t2 = setTimeout(() => setPhase('rising'), 2200);
+    // Phase 3: Rising (2.2s - 3.2s) - Dot moves up
+    const t3 = setTimeout(() => setPhase('revealing'), 3200);
+    // Phase 4: Revealing (3.2s - 4.7s) - BrandAs & Supporting Line
+    const t4 = setTimeout(() => setPhase('loading'), 4700);
+    // Phase 5: Loading (4.7s - 6.5s) - Progress line
+    const t5 = setTimeout(() => setPhase('complete'), 6500);
 
     return () => {
       clearTimeout(t1);
@@ -41,9 +41,9 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
             clearInterval(timer);
             return 100;
           }
-          return prev + 2;
+          return prev + 1;
         });
-      }, 20);
+      }, 40);
       return () => clearInterval(timer);
     }
   }, [phase]);
@@ -99,20 +99,21 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ 
               scale: phase === 'initial' ? 1 : 0.05, 
-              opacity: phase === 'rising' ? [1, 0.8, 1] : 1,
-              y: phase === 'rising' ? -150 : 0
+              opacity: phase === 'rising' ? [1, 0.5, 0] : 1, // Fade out as it rises
+              y: phase === 'rising' ? -350 : 0
             }}
             transition={{ 
-              scale: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
-              y: { duration: 0.5, ease: "easeOut" }
+              scale: { duration: 1, ease: [0.76, 0, 0.24, 1] },
+              y: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+              opacity: { duration: 0.8, delay: 0.4 }
             }}
             className="relative flex items-center justify-center shrink-0"
           >
             {/* The Circle */}
             <div className={`
               ${phase === 'initial' ? 'w-64 h-64 border-2' : 'w-4 h-4'} 
-              rounded-full border-brand-accent transition-all duration-700 flex items-center justify-center 
-              bg-brand-accent/5 backdrop-blur-sm shadow-[0_0_50px_rgba(46,168,255,0.3)]
+              rounded-full border-brand-accent transition-all duration-1000 flex items-center justify-center 
+              bg-brand-accent/5 backdrop-blur-sm shadow-[0_0_50px_rgba(46,168,255,0.4)]
             `}>
               {phase === 'initial' && (
                 <motion.span 
@@ -126,12 +127,13 @@ export const EntryLoader = ({ onComplete }: EntryLoaderProps) => {
               )}
             </div>
 
-            {/* Light Trail (Only in rising) */}
+            {/* Light Trail (Leaving a "graph" line behind) */}
             {phase === 'rising' && (
               <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 100 }}
-                className="absolute top-4 left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-t from-transparent via-brand-accent to-brand-accent shadow-[0_0_10px_rgba(46,168,255,0.8)]"
+                initial={{ opacity: 0, height: 0, scaleX: 0.5 }}
+                animate={{ opacity: [0, 0.6, 0], height: 400, scaleX: 1, y: 200 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] bg-gradient-to-t from-transparent via-brand-accent to-brand-cyan shadow-[0_0_20px_rgba(46,168,255,1)]"
               />
             )}
           </motion.div>
