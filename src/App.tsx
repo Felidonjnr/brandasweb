@@ -28,6 +28,7 @@ import { ProjectModal } from './components/ProjectModal';
 import { SectionHeading } from './components/SectionHeading';
 import { DigitalMomentCard } from './components/DigitalMomentCard';
 import { EntryLoader } from './components/EntryLoader';
+import { CreativeLead } from './components/CreativeLead';
 import { Project, SERVICES, PROJECTS, DIGITAL_MOMENTS } from './types';
 import { LIQUID_TRANSITION, FADE_UP_VARIANTS, STAGGER_CONTAINER, BLUR_REVEAL_VARIANTS } from './lib/motion';
 
@@ -275,6 +276,8 @@ function App() {
                 </motion.div>
               </div>
             </section>
+
+            <CreativeLead />
 
             {/* Case Files */}
             <section id="case-files" className="py-40 bg-brand-royal/5 relative overflow-hidden">
