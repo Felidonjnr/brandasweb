@@ -89,7 +89,7 @@ export const CreativeLead = () => {
                 {/* The Image Container */}
                 <div className="absolute inset-0 bg-brand-deep">
                   <img 
-                    src="/creative-lead.jpg" 
+                    src="https://res.cloudinary.com/drcroxtgs/image/upload/v1777937731/image_1776061059753_a41czu.jpg" 
                     alt="Godshand - Creative Lead"
                     style={{ maskImage: 'radial-gradient(circle at center, black 40%, transparent 100%)', WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 100%)' }}
                     className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000 scale-105 group-hover:scale-100 contrast-[1.1] brightness-[0.9]"
