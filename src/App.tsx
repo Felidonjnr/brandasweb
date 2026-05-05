@@ -123,26 +123,25 @@ function App() {
                     </div>
                   </motion.div>
                   
-                  <motion.h1 
+                   <motion.h1 
                     variants={FADE_UP_VARIANTS}
                     className="text-6xl md:text-8xl lg:text-9xl font-display font-bold text-white mb-10 leading-[0.9] tracking-tighter"
                   >
-                    Your Brand Is <span className="text-brand-accent italic bg-clip-text text-transparent bg-gradient-to-r from-brand-accent to-brand-cyan drop-shadow-[0_0_30px_rgba(46,168,255,0.2)]">Not Weak</span>. It Just Needs <span className="relative">
-                      Better
-                      <motion.span 
-                        initial={{ width: 0 }}
-                        animate={{ width: '100%' }}
-                        transition={{ duration: 1.5, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute bottom-2 left-0 h-3 bg-brand-primary/30 -z-10"
-                      />
-                    </span> Packaging.
+                    Your brand deserves one clear message, one consistent style, and one <span className="text-brand-accent italic bg-clip-text text-transparent bg-gradient-to-r from-brand-accent to-brand-cyan drop-shadow-[0_0_30px_rgba(46,168,255,0.2)]">trusted digital experience.</span>
                   </motion.h1>
 
                   <motion.p 
                     variants={FADE_UP_VARIANTS}
-                    className="text-2xl md:text-3xl text-brand-mist/50 mb-16 max-w-4xl leading-relaxed italic font-medium tracking-tight"
+                    className="text-2xl md:text-3xl text-brand-mist/50 mb-8 max-w-4xl leading-relaxed italic font-medium tracking-tight"
                   >
-                    "We build fluid digital identities, clean websites, and AI-powered systems that move your brand from scattered to premium."
+                    BrandAs Media helps businesses create a unified digital presence across websites, social media, content, and automation — so your brand looks professional, communicates clearly, and works smarter online.
+                  </motion.p>
+                  
+                  <motion.p 
+                    variants={FADE_UP_VARIANTS}
+                    className="text-lg text-brand-mist/30 mb-16 max-w-2xl leading-relaxed italic"
+                  >
+                    From websites to brand visuals and AI-powered systems, we help you package your value properly across every digital platform.
                   </motion.p>
 
                   <motion.div 
@@ -150,22 +149,15 @@ function App() {
                     className="flex flex-col sm:flex-row gap-8 items-start sm:items-center"
                   >
                     <a 
-                      href="#transformation"
+                      href="#projects"
                       className="px-12 py-6 accent-gradient text-white rounded-full font-black uppercase tracking-widest text-xs flex items-center justify-center gap-4 shadow-[0_0_50px_rgba(46,168,255,0.2)] hover:scale-105 active:scale-95 transition-all group relative overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-                      <span className="relative z-10">Explore Services</span>
+                      <span className="relative z-10">View Projects</span>
                       <ArrowRight size={20} className="relative z-10 group-hover:translate-x-2 transition-transform" />
                     </a>
                     
                     <div className="flex items-center gap-6">
-                      <a 
-                        href="#case-files"
-                        className="text-xs font-black uppercase tracking-[0.3em] text-brand-mist/40 hover:text-white transition-all flex items-center gap-3 group"
-                      >
-                        <span className="w-8 h-[1px] bg-brand-mist/20 group-hover:w-12 group-hover:bg-white transition-all" />
-                        Our Work
-                      </a>
                       <a 
                         href={MAIN_WHATSAPP_LINK}
                         target="_blank"
@@ -173,7 +165,7 @@ function App() {
                         className="text-xs font-black uppercase tracking-[0.3em] text-brand-mist/40 hover:text-brand-accent transition-all flex items-center gap-3 group"
                       >
                         <span className="w-8 h-[1px] bg-brand-mist/20 group-hover:w-12 group-hover:bg-brand-accent transition-all" />
-                        Contact Lab
+                        Message Us
                       </a>
                     </div>
                   </motion.div>
@@ -253,13 +245,13 @@ function App() {
               </div>
             </section>
 
-            {/* Arsenal */}
-            <section id="transformation" className="py-40 relative">
+            {/* Services Section */}
+            <section id="what-we-do" className="py-40 relative">
               <div className="container mx-auto px-6">
                 <SectionHeading 
-                  badge="The Arsenal"
-                  title="What we use to transform brands."
-                  subtitle="We combine creative thinking, modern engineering, and AI automation to package your business for growth."
+                  badge="Services"
+                  title="What We Help Brands Build"
+                  subtitle="We help businesses move from scattered online presence to a clear, trusted, and unified digital experience."
                   centered
                 />
                 
@@ -279,8 +271,8 @@ function App() {
 
             <CreativeLead />
 
-            {/* Case Files */}
-            <section id="case-files" className="py-40 bg-brand-royal/5 relative overflow-hidden">
+            {/* Projects Section */}
+            <section id="projects" className="py-40 bg-brand-royal/5 relative overflow-hidden">
               <motion.div 
                 animate={{ 
                   scale: [1, 1.2, 1],
@@ -301,15 +293,15 @@ function App() {
                   <div className="max-w-2xl">
                     <motion.div variants={FADE_UP_VARIANTS} className="inline-flex items-center gap-4 text-brand-cyan font-black text-xs uppercase tracking-[0.4em] mb-8">
                       <FileCode size={20} />
-                      <span>The Case Files</span>
+                      <span>Portfolio</span>
                     </motion.div>
                     <motion.h2 
                       variants={FADE_UP_VARIANTS}
                       className="text-5xl md:text-6xl font-display font-bold text-white mb-8"
                     >
-                      Selected Transformations.
+                      Selected Projects
                     </motion.h2>
-                    <motion.p variants={FADE_UP_VARIANTS} className="text-brand-mist/40 text-xl leading-relaxed italic font-medium">"Evidence of brands that moved from ordinary to premium."</motion.p>
+                    <motion.p variants={FADE_UP_VARIANTS} className="text-brand-mist/40 text-xl leading-relaxed italic font-medium">Explore selected websites, AI systems, digital tools, and interactive experiences built or shaped through BrandAs Media.</motion.p>
                   </div>
 
                   <motion.div variants={FADE_UP_VARIANTS} className="flex flex-wrap gap-3">
@@ -437,7 +429,7 @@ function App() {
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[500px] bg-brand-primary/5 blur-[150px] -z-10" />
               <div className="container mx-auto px-6">
                 <SectionHeading 
-                  badge="The Protocol"
+                  badge="Our Process"
                   title="How we package your brand."
                   subtitle="A systematic approach to moving your business from ordinary to premium."
                   centered
@@ -477,8 +469,8 @@ function App() {
               </div>
             </section>
 
-            {/* Final CTA */}
-            <section className="py-40 relative">
+            {/* Final Contact Section */}
+            <section id="contact" className="py-40 relative">
               <div className="container mx-auto px-6">
                 <motion.div 
                   initial="hidden"
@@ -497,11 +489,10 @@ function App() {
                     variants={FADE_UP_VARIANTS}
                     className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-10 leading-[0.95] tracking-tighter"
                   >
-                    Your brand has value.<br/>
-                    Let’s make them <span className="text-brand-accent italic">see it</span>.
+                    Ready to make your brand look clearer and more trusted?
                   </motion.h2>
                   <motion.p variants={FADE_UP_VARIANTS} className="text-2xl text-brand-mist/50 mb-16 italic font-medium leading-relaxed max-w-3xl mx-auto">
-                    Design your websites, brand visuals, and digital presence with a lab that understands high-level packaging.
+                    Message BrandAs Media for websites, brand visuals, AI automation, digital systems, and growth-focused online presence.
                   </motion.p>
                   
                   <motion.div 
@@ -516,7 +507,7 @@ function App() {
                     >
                       <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
                       <MessageCircle size={20} className="relative z-10" />
-                      <span className="relative z-10">Message BrandAs Lab</span>
+                      <span className="relative z-10">Message BrandAs Media</span>
                     </a>
                   </motion.div>
                 </motion.div>
@@ -536,10 +527,10 @@ function App() {
                   </div>
                   
                   <div className="flex gap-12">
-                    {['Lab', 'Method', 'Archive', 'Connect'].map((link) => (
+                    {['Home', 'What We Do', 'Projects', 'About', 'Contact'].map((link) => (
                       <a 
                         key={link} 
-                        href={`#${link.toLowerCase()}`} 
+                        href={`#${link.toLowerCase().replace(/ /g, '-')}`} 
                         className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-mist/30 hover:text-brand-accent transition-all duration-500"
                       >
                         {link}

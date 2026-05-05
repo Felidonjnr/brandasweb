@@ -74,20 +74,44 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               </motion.div>
 
               <motion.p variants={FADE_UP_VARIANTS} className="text-xl text-brand-mist/40 mb-12 leading-relaxed italic font-medium">
-                "{project.shortDescription || project.description}"
+                "{project.shortDescription}"
               </motion.p>
               
-              <motion.div variants={FADE_UP_VARIANTS} className="space-y-6 mb-16">
-                <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-mist/20 mb-4 px-2">Lab Protocol Applied</h4>
-                {['Visual Strategy', 'Conversion Engineering', 'Fluid Experience'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-5 group">
-                    <div className="w-6 h-6 rounded-lg bg-brand-accent/5 border border-brand-accent/20 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all duration-500">
-                      <CheckCircle2 size={14} />
-                    </div>
-                    <span className="text-sm font-bold text-brand-mist/60 group-hover:text-white transition-colors">{item}</span>
+              <div className="space-y-12 mb-16">
+                <motion.div variants={FADE_UP_VARIANTS} className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div>
+                    <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-accent mb-6">The Challenge</h4>
+                    <p className="text-sm text-brand-mist/50 leading-relaxed italic">{project.challenge}</p>
                   </div>
-                ))}
-              </motion.div>
+                  <div>
+                    <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-primary mb-6">What BrandAs Media Did</h4>
+                    <p className="text-sm text-brand-mist/50 leading-relaxed italic">{project.brandasResponse}</p>
+                  </div>
+                </motion.div>
+
+                <motion.div variants={FADE_UP_VARIANTS}>
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-mist/20 mb-6">Key Features</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {project.features.map((feature, i) => (
+                      <div key={i} className="flex items-center gap-4 group/item">
+                        <div className="w-1.5 h-1.5 rounded-full bg-brand-accent/30 group-hover/item:bg-brand-accent transition-colors" />
+                        <span className="text-xs font-bold text-brand-mist/40 group-hover/item:text-white transition-colors">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                <motion.div variants={FADE_UP_VARIANTS}>
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-mist/20 mb-6">Tools & Stack</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.stack.map((tool, i) => (
+                      <span key={i} className="px-4 py-2 rounded-lg bg-white/[0.03] border border-white/5 text-[9px] font-black uppercase tracking-widest text-brand-mist/30">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
 
               <motion.div 
                 variants={FADE_UP_VARIANTS}

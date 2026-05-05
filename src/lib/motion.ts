@@ -6,7 +6,7 @@ export const LIQUID_TRANSITION = {
   damping: 20,
   mass: 1,
   restDelta: 0.001
-};
+} as const;
 
 export const SMOOTH_TRANSITION = {
   duration: 0.8,
@@ -23,10 +23,7 @@ export const FADE_UP_VARIANTS: Variants = {
     opacity: 1, 
     y: 0,
     filter: "blur(0px)",
-    transition: {
-      ...LIQUID_TRANSITION,
-      duration: 1
-    }
+    transition: LIQUID_TRANSITION
   }
 };
 

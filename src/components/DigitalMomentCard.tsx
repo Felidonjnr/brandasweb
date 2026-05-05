@@ -1,15 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { LIQUID_TRANSITION } from '../lib/motion';
+import { DigitalMoment } from '../types';
 
-interface Moment {
-  title: string;
-  category: string;
-  description: string;
-  visual: string;
-}
-
-export const DigitalMomentCard = ({ moment }: { moment: Moment }) => {
+export const DigitalMomentCard = ({ moment }: { moment: DigitalMoment, key?: string }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
@@ -31,7 +25,7 @@ export const DigitalMomentCard = ({ moment }: { moment: Moment }) => {
       </h3>
       
       <p className="text-brand-mist/30 text-base leading-relaxed italic mb-10 transition-colors duration-700 group-hover:text-brand-mist/50">
-        "{moment.description}"
+        "{moment.shortDescription}"
       </p>
 
       <div className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-mist/10 group-hover:text-brand-accent/30 transition-colors duration-1000">

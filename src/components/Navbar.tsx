@@ -21,10 +21,11 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'The Lab', href: '#the-lab' },
-    { name: 'Arsenal', href: '#transformation' },
-    { name: 'Case Files', href: '#case-files' },
-    { name: 'Protocol', href: '#method' }
+    { name: 'Home', href: '#the-lab' },
+    { name: 'What We Do', href: '#what-we-do' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'About', href: '#about' },
+    { name: 'Contact', href: '#contact' }
   ];
 
   return (

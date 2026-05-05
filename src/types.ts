@@ -288,38 +288,26 @@ export const DIGITAL_MOMENTS: DigitalMoment[] = [
 export const SERVICES: Service[] = [
   {
     toolName: 'Websites',
-    title: 'Website Design & Development',
-    description: 'Business websites, landing pages, and portfolios built for high trust and clean conversion.',
+    title: 'Website Design',
+    description: 'Modern websites, landing pages, product pages, and portfolio experiences that help your business look credible and easier to trust.',
     icon: 'Globe'
   },
   {
     toolName: 'Design',
-    title: 'Graphic Design',
-    description: 'Flyers, posters, and print-ready designs that make your brand look professional and intentional.',
+    title: 'Brand & Social Media Design',
+    description: 'Clean, premium visuals for flyers, social media, campaigns, and brand identity — designed to make your business look intentional and professional.',
     icon: 'Palette'
   },
   {
-    toolName: 'Identity',
-    title: 'Logo & Brand Identity',
-    description: 'Strategic logos, typography, and visual systems that define your brand’s authority.',
-    icon: 'Fingerprint'
-  },
-  {
-    toolName: 'Ads',
-    title: 'Social Media Advert Creatives',
-    description: 'High-impact Facebook, Instagram, and WhatsApp advert designs that attract serious attention.',
-    icon: 'Megaphone'
-  },
-  {
-    toolName: 'Content',
-    title: 'Content & Digital Promotion',
-    description: 'Ad copy support and promotional campaign visuals to help your business reach the right people.',
-    icon: 'MessageSquare'
-  },
-  {
-    toolName: 'Future',
-    title: 'AI & Digital Automation',
-    description: 'AI business support, workflow automation, and custom digital tools to reduce manual stress.',
+    toolName: 'Automation',
+    title: 'AI Automation',
+    description: 'Smart systems for content planning, lead capture, customer follow-up, WhatsApp sales support, and smoother business workflows.',
     icon: 'Cpu'
+  },
+  {
+    toolName: 'Growth',
+    title: 'Digital Growth Systems',
+    description: 'Practical digital structure for campaigns, funnels, customer journeys, and online positioning.',
+    icon: 'Zap'
   }
 ];

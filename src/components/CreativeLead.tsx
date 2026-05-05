@@ -7,7 +7,7 @@ export const CreativeLead = () => {
   const WHATSAPP_LINK = "https://wa.me/2348024646351?text=Hello%20BrandAs%20Media%2C%20I%20just%20viewed%20your%20portfolio%20and%20I%27d%20like%20to%20work%20with%20you%20on%20a%20website%2C%20design%2C%20or%20AI%20automation%20project.";
 
   return (
-    <section id="founder" className="py-40 relative overflow-hidden bg-brand-deep">
+    <section id="about" className="py-40 relative overflow-hidden bg-brand-deep">
       {/* Background Decorative Elements */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-brand-royal/10 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-brand-accent/5 blur-[100px] rounded-full pointer-events-none" />
@@ -24,7 +24,7 @@ export const CreativeLead = () => {
           <div className="lg:w-1/2 order-2 lg:order-1">
             <motion.div variants={FADE_UP_VARIANTS} className="inline-flex items-center gap-4 text-brand-primary font-black text-xs uppercase tracking-[0.4em] mb-10">
               <Sparkles size={20} />
-              <span>Behind the Digital Lab</span>
+              <span>Behind BrandAs Media</span>
             </motion.div>
 
             <motion.div variants={FADE_UP_VARIANTS} className="mb-12">
@@ -32,7 +32,7 @@ export const CreativeLead = () => {
                 Godshand
               </h2>
               <p className="text-xl text-brand-accent font-black uppercase tracking-[0.2em]">
-                Creative Lead
+                Creative Lead, BrandAs Media
               </p>
             </motion.div>
 
@@ -91,8 +91,7 @@ export const CreativeLead = () => {
                   <img 
                     src="https://res.cloudinary.com/drcroxtgs/image/upload/v1777937731/image_1776061059753_a41czu.jpg" 
                     alt="Godshand - Creative Lead"
-                    style={{ maskImage: 'radial-gradient(circle at center, black 40%, transparent 100%)', WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 100%)' }}
-                    className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000 scale-105 group-hover:scale-100 contrast-[1.1] brightness-[0.9]"
+                    className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000 scale-105 group-hover:scale-100 contrast-[1.1] brightness-[0.8] saturate-0 hover:saturate-100"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800';
                     }}

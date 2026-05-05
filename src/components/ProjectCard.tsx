@@ -94,9 +94,9 @@ export const ProjectCard = ({ project, onViewDetails }: ProjectCardProps) => {
         <div className="grid gap-4 mt-auto">
           <button 
             onClick={() => onViewDetails(project)}
-            className="w-full px-8 py-4 bg-white/5 hover:bg-brand-accent/20 text-white rounded-2xl text-xs font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 group/btn border border-white/10"
+            className="w-full px-8 py-5 bg-white/5 hover:bg-brand-accent/20 text-white rounded-2xl text-xs font-black uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-3 group/btn border border-white/10"
           >
-            <span>Open Case File</span>
+            <span>View Details</span>
             <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform" />
           </button>
           
@@ -109,7 +109,7 @@ export const ProjectCard = ({ project, onViewDetails }: ProjectCardProps) => {
                 className="flex-1 p-4 accent-gradient text-white rounded-2xl transition-all shadow-xl flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-widest"
               >
                 <ExternalLink size={16} />
-                <span>Open Live Preview</span>
+                <span>Live Preview</span>
               </a>
             )}
 
@@ -124,7 +124,6 @@ export const ProjectCard = ({ project, onViewDetails }: ProjectCardProps) => {
                   <Lock size={14} />
                   <span>Request Access</span>
                 </div>
-                <span className="text-[8px] opacity-60 normal-case tracking-normal">Access available on request.</span>
               </a>
             )}
 
